@@ -2,30 +2,30 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"s": "00_scraper.ipynb",
-         "retries": "00_scraper.ipynb",
-         "cache_db": "00_scraper.ipynb",
-         "RS_URLS": "00_scraper.ipynb",
-         "ITEM_FORM": "00_scraper.ipynb",
-         "KW_OPTIONS": "00_scraper.ipynb",
-         "FORMATS": "00_scraper.ipynb",
-         "LOCATIONS": "00_scraper.ipynb",
-         "ACCESS": "00_scraper.ipynb",
-         "AGENCY_FORM": "00_scraper.ipynb",
-         "AGENCY_LOCATIONS": "00_scraper.ipynb",
-         "AGENCY_STATUS": "00_scraper.ipynb",
-         "SERIES_FORM": "00_scraper.ipynb",
-         "RSBase": "00_scraper.ipynb",
-         "RSEntity": "00_scraper.ipynb",
-         "RSSearch": "00_scraper.ipynb",
-         "RSItem": "00_scraper.ipynb",
-         "RSItemSearch": "00_scraper.ipynb",
-         "RSSeries": "00_scraper.ipynb",
-         "RSSeriesSearch": "00_scraper.ipynb",
-         "RSAgency": "00_scraper.ipynb",
-         "RSAgencySearch": "00_scraper.ipynb"}
+index = {"s": "00_scrapers.ipynb",
+         "retries": "00_scrapers.ipynb",
+         "cache_db": "00_scrapers.ipynb",
+         "RS_URLS": "00_scrapers.ipynb",
+         "ITEM_FORM": "00_scrapers.ipynb",
+         "KW_OPTIONS": "00_scrapers.ipynb",
+         "FORMATS": "00_scrapers.ipynb",
+         "LOCATIONS": "00_scrapers.ipynb",
+         "ACCESS": "00_scrapers.ipynb",
+         "AGENCY_FORM": "00_scrapers.ipynb",
+         "AGENCY_LOCATIONS": "00_scrapers.ipynb",
+         "AGENCY_STATUS": "00_scrapers.ipynb",
+         "SERIES_FORM": "00_scrapers.ipynb",
+         "RSBase": "00_scrapers.ipynb",
+         "RSEntity": "00_scrapers.ipynb",
+         "RSSearch": "00_scrapers.ipynb",
+         "RSItem": "00_scrapers.ipynb",
+         "RSItemSearch": "00_scrapers.ipynb",
+         "RSSeries": "00_scrapers.ipynb",
+         "RSSeriesSearch": "00_scrapers.ipynb",
+         "RSAgency": "00_scrapers.ipynb",
+         "RSAgencySearch": "00_scrapers.ipynb"}
 
-modules = ["scraper.py"]
+modules = ["scrapers.py"]
 
 doc_url = "https://wragge.github.io/recordsearch_data_scraper/"
 

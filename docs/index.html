@@ -31,7 +31,17 @@ nb_path: "index.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This file will become your README and also the index of your documentation.</p>
+<p>The National Archives of Australia's online database, RecordSearch, contains lots of rich, historical data. Unfortunately there's no API, so we have to resort to screen scrapers to get it out in reusable form. This is a library of scrapers to extract data about the main entities in RecordSearch – Items, Series, and Agencies – from both individual records, and search results.</p>
+<p>The main classes are:</p>
+<ul>
+<li><code>RSItem()</code> – an individual item</li>
+<li><code>RSItemSearch()</code> – an advanced search for items</li>
+<li><code>RSSeries()</code> – an individual series</li>
+<li><code>RSSeriesSearch()</code> – an advanced search for series</li>
+<li><code>RSAgency()</code> – an individual agency</li>
+<li><code>RSAgencySearch()</code> – an advanced search for agencies</li>
+</ul>
+<p>RecordSearch makes use of an odd assortment of sessions, redirects, and hidden forms, which make scraping a challenge. Please let me know if something isn't working as expected, as problems can be difficult to track down!</p>
 
 </div>
 </div>
@@ -44,7 +54,7 @@ nb_path: "index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>pip install your_project_name</code></p>
+<p><code>pip install git+https://github.com/wragge/recordsearch_data_scraper.git</code></p>
 
 </div>
 </div>
@@ -57,7 +67,7 @@ nb_path: "index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Fill me in please! Don't forget code examples:</p>
+<p>Retrieve an item using its Item ID.</p>
 
 </div>
 </div>
@@ -69,7 +79,31 @@ nb_path: "index.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">item</span> <span class="o">=</span> <span class="n">RSItem</span><span class="p">(</span><span class="s1">&#39;3445411&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>View the item data.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">item</span><span class="o">.</span><span class="n">data</span>
 </pre></div>
 
     </div>
@@ -84,7 +118,21 @@ nb_path: "index.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>2</pre>
+<pre>{&#39;title&#39;: &#39;WRAGGE Clement Lionel Egerton : SERN 647 : POB Cheadle England : POE Enoggera QLD : NOK  (Father) WRAGGE Clement Lindley&#39;,
+ &#39;identifier&#39;: &#39;3445411&#39;,
+ &#39;series&#39;: &#39;B2455&#39;,
+ &#39;control_symbol&#39;: &#39;WRAGGE C L E&#39;,
+ &#39;digitised_status&#39;: True,
+ &#39;digitised_pages&#39;: 47,
+ &#39;access_status&#39;: &#39;Open&#39;,
+ &#39;access_decision_reasons&#39;: [],
+ &#39;location&#39;: &#39;Canberra&#39;,
+ &#39;retrieved&#39;: &#39;2021-04-25T21:12:22.620414+10:00&#39;,
+ &#39;contents_date_str&#39;: &#39;1914 - 1920&#39;,
+ &#39;contents_start_date&#39;: &#39;1914&#39;,
+ &#39;contents_end_date&#39;: &#39;1920&#39;,
+ &#39;access_decision_date_str&#39;: &#39;12 Apr 2001&#39;,
+ &#39;access_decision_date&#39;: &#39;2001-04-12&#39;}</pre>
 </div>
 
 </div>
@@ -95,6 +143,150 @@ nb_path: "index.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Search for items.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">search</span> <span class="o">=</span> <span class="n">RSItemSearch</span><span class="p">(</span><span class="n">kw</span><span class="o">=</span><span class="s1">&#39;wragge&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>View the total number of items in the results set.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">search</span><span class="o">.</span><span class="n">total_results</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>209</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Access the first page of results.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">items</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">get_results</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>View the first result.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">items</span><span class="p">[</span><span class="s1">&#39;results&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;series&#39;: &#39;A2479&#39;,
+ &#39;control_symbol&#39;: &#39;17/1306&#39;,
+ &#39;title&#39;: &#39;The Wragge Estate. Property for sale.&#39;,
+ &#39;identifier&#39;: &#39;149309&#39;,
+ &#39;access_status&#39;: &#39;Open&#39;,
+ &#39;location&#39;: &#39;Canberra&#39;,
+ &#39;contents_date_str&#39;: &#39;1917 - 1917&#39;,
+ &#39;contents_start_date&#39;: &#39;1917&#39;,
+ &#39;contents_end_date&#39;: &#39;1917&#39;,
+ &#39;digitised_status&#39;: True}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The Series and Agency classes follow exactly the same pattern. See the docs for more examples.</p>
+
+</div>
+</div>
+</div>
 </div>
  
 
