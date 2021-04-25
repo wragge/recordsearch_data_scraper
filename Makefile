@@ -2,11 +2,11 @@
 SHELL := /bin/bash
 SRC = $(wildcard ./*.ipynb)
 
-all: recordsearch_tools_new docs
+all: recordsearch_data_scraper docs
 
-recordsearch_tools_new: $(SRC)
+recordsearch_data_scraper: $(SRC)
 	nbdev_build_lib
-	touch recordsearch_tools_new
+	touch recordsearch_data_scraper
 
 sync:
 	nbdev_update_lib
