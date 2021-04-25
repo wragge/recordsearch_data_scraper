@@ -1,7 +1,7 @@
-repository: wragge/recordsearch_tools_new
+repository: wragge/recordsearch_data_scraper
 output: web
-topnav_title: recordsearch_tools_new
-site_title: recordsearch_tools_new
+topnav_title: recordsearch_data_scraper
+site_title: recordsearch_data_scraper
 company_name: Tim Sherratt
 description: A description of your project
 # Set to false to disable KaTeX math
