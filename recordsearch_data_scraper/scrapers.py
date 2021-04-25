@@ -969,8 +969,8 @@ class RSSeriesSearch(RSSearch):
     search_page = 'AdvSearchSeries.aspx'
     entity = RSSeries
 
-    def __init__(self, page=None, results_per_page=20, sort=1, record_detail='brief', **kwargs):
-        super(RSSeriesSearch, self).__init__(page=page, results_per_page=results_per_page, sort=sort, record_detail=record_detail, **kwargs)
+    def __init__(self, results_per_page=20, sort=1, record_detail='brief', **kwargs):
+        super(RSSeriesSearch, self).__init__(results_per_page=results_per_page, sort=sort, record_detail=record_detail, **kwargs)
 
     def get_locations(self, cell):
         locations = []
@@ -1117,8 +1117,8 @@ class RSAgencySearch(RSSearch):
     search_page = 'AdvSearchAgencies.aspx'
     entity = RSAgency
 
-    def __init__(self, page=None, results_per_page=20, sort=1, record_detail='brief', **kwargs):
-        super(RSAgencySearch, self).__init__(page=page, results_per_page=results_per_page, sort=sort, record_detail=record_detail, **kwargs)
+    def __init__(self, results_per_page=20, sort=1, record_detail='brief', **kwargs):
+        super(RSAgencySearch, self).__init__(results_per_page=results_per_page, sort=sort, record_detail=record_detail, **kwargs)
 
     def process_row(self, row):
         cells = row.find_all('td')
