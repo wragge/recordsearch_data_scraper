@@ -105,7 +105,7 @@ nb_path: "00_scrapers.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSSearch" class="doc_header"><code>class</code> <code>RSSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L468" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>None</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSBase"><code>RSBase</code></a></p>
+<h2 id="RSSearch" class="doc_header"><code>class</code> <code>RSSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L467" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>None</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSBase"><code>RSBase</code></a></p>
 </blockquote>
 <p>Base class for an advanced search in RecordSearch. There are different search forms for the different
 RecordSearch entities, so don't use this directly. Use one of the subclasses.</p>
@@ -138,7 +138,7 @@ RecordSearch entities, so don't use this directly. Use one of the subclasses.</p
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSItem" class="doc_header"><code>class</code> <code>RSItem</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L629" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSItem</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
+<h2 id="RSItem" class="doc_header"><code>class</code> <code>RSItem</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L628" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSItem</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
 </blockquote>
 <p>Class used for extracting data about an individual item (usually a file, but can be a volume, box, photograph etc) from RecordSearch.</p>
 <p>You need to supply one of the following parameters:</p>
@@ -255,7 +255,7 @@ RecordSearch entities, so don't use this directly. Use one of the subclasses.</p
  &#39;access_status&#39;: &#39;Open&#39;,
  &#39;access_decision_reasons&#39;: [],
  &#39;location&#39;: &#39;Canberra&#39;,
- &#39;retrieved&#39;: &#39;2021-04-26T15:15:46.643147+10:00&#39;,
+ &#39;retrieved&#39;: &#39;2021-04-26T16:46:08.987872+10:00&#39;,
  &#39;contents_date_str&#39;: &#39;1914 - 1920&#39;,
  &#39;contents_start_date&#39;: &#39;1914&#39;,
  &#39;contents_end_date&#39;: &#39;1920&#39;,
@@ -408,7 +408,7 @@ RecordSearch entities, so don't use this directly. Use one of the subclasses.</p
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSItemSearch" class="doc_header"><code>class</code> <code>RSItemSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L732" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSItemSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>9</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
+<h2 id="RSItemSearch" class="doc_header"><code>class</code> <code>RSItemSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L731" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSItemSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>9</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
 </blockquote>
 <p>Search for items in RecordSearch.</p>
 <p>Supply any of the item search parameters as kwargs to initialise the search.</p>
@@ -685,7 +685,7 @@ to retrieve the complete result set.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSearch.get_results" class="doc_header"><code>RSSearch.get_results</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L491" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.get_results</code>(<strong><code>page</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="RSSearch.get_results" class="doc_header"><code>RSSearch.get_results</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L490" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.get_results</code>(<strong><code>page</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Return a list of results from a search results page.</p>
 <p>The <code>page</code> value is incremented with each request, so you can call this method
@@ -931,7 +931,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: None,
    &#39;contents_end_date&#39;: None,
    &#39;digitised_status&#39;: True}],
- &#39;retrieved&#39;: &#39;2021-04-26T15:14:34.305628+10:00&#39;}</pre>
+ &#39;retrieved&#39;: &#39;2021-04-26T16:46:13.604577+10:00&#39;}</pre>
 </div>
 
 </div>
@@ -993,7 +993,7 @@ this method will return an empty list.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSearch.refresh_cache" class="doc_header"><code>RSSearch.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L537" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.refresh_cache</code>()</p>
+<h4 id="RSSearch.refresh_cache" class="doc_header"><code>RSSearch.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L536" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.refresh_cache</code>()</p>
 </blockquote>
 <p>Delete data for this search from the cache, then retrieve a fresh version from RecordSearch.</p>
 
@@ -1018,7 +1018,7 @@ this method will return an empty list.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSSeries" class="doc_header"><code>class</code> <code>RSSeries</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L824" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSeries</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>, <strong><code>include_number_digitised</code></strong>=<em><code>True</code></em>, <strong><code>include_access_status</code></strong>=<em><code>True</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
+<h2 id="RSSeries" class="doc_header"><code>class</code> <code>RSSeries</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L823" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSeries</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>, <strong><code>include_number_digitised</code></strong>=<em><code>True</code></em>, <strong><code>include_access_status</code></strong>=<em><code>True</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
 </blockquote>
 <p>Class used for extracting data about an individual series.
 You need to supply the following parameter:</p>
@@ -1246,7 +1246,7 @@ include the number of items in this series in each of the access status categori
    &#39;end_date&#39;: &#39;1925-09-29&#39;,
    &#39;identifier&#39;: &#39;D4404&#39;,
    &#39;title&#39;: &#34;Correspondence files, single number series with &#39;2&#39; prefix - D4404 contents date range: 01 Jan 1912 - 31 Dec 1977&#34;}],
- &#39;retrieved&#39;: &#39;2021-04-22T11:48:12.024166+10:00&#39;,
+ &#39;retrieved&#39;: &#39;2021-04-26T16:46:14.573429+10:00&#39;,
  &#39;items_described&#39;: 1382,
  &#39;items_described_note&#39;: &#39;All items from this series are entered on RecordSearch.&#39;,
  &#39;contents_date_str&#39;: &#39;01 Jan 1839 - 23 May 1963&#39;,
@@ -1360,7 +1360,7 @@ include the number of items in this series in each of the access status categori
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSeries.refresh_cache" class="doc_header"><code>RSSeries.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L899" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSeries.refresh_cache</code>()</p>
+<h4 id="RSSeries.refresh_cache" class="doc_header"><code>RSSeries.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L898" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSeries.refresh_cache</code>()</p>
 </blockquote>
 <p>Delete data for this item from the cache, then extract a fresh version from RecordSearch.</p>
 
@@ -1415,7 +1415,7 @@ include the number of items in this series in each of the access status categori
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSSeriesSearch" class="doc_header"><code>class</code> <code>RSSeriesSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L951" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSeriesSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>1</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
+<h2 id="RSSeriesSearch" class="doc_header"><code>class</code> <code>RSSeriesSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L950" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSeriesSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>1</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
 </blockquote>
 <p>Search for series in RecordSearch.</p>
 <p>Supply any of the series search parameters as kwargs to initialise the search.</p>
@@ -1721,7 +1721,7 @@ to retrieve the complete result set.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSearch.get_results" class="doc_header"><code>RSSearch.get_results</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L491" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.get_results</code>(<strong><code>page</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="RSSearch.get_results" class="doc_header"><code>RSSearch.get_results</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L490" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.get_results</code>(<strong><code>page</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Return a list of results from a search results page.</p>
 <p>The <code>page</code> value is incremented with each request, so you can call this method
@@ -1968,7 +1968,8 @@ this method will return an empty list.</p>
    &#39;accumulation_end_date&#39;: &#39;1986&#39;,
    &#39;contents_date_str&#39;: &#39;1967 - 1986&#39;,
    &#39;contents_start_date&#39;: &#39;1967&#39;,
-   &#39;contents_end_date&#39;: &#39;1986&#39;}]}</pre>
+   &#39;contents_end_date&#39;: &#39;1986&#39;}],
+ &#39;retrieved&#39;: &#39;2021-04-26T16:46:38.395612+10:00&#39;}</pre>
 </div>
 
 </div>
@@ -1997,7 +1998,7 @@ this method will return an empty list.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSearch.refresh_cache" class="doc_header"><code>RSSearch.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L537" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.refresh_cache</code>()</p>
+<h4 id="RSSearch.refresh_cache" class="doc_header"><code>RSSearch.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L536" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.refresh_cache</code>()</p>
 </blockquote>
 <p>Delete data for this search from the cache, then retrieve a fresh version from RecordSearch.</p>
 
@@ -2022,7 +2023,7 @@ this method will return an empty list.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSAgency" class="doc_header"><code>class</code> <code>RSAgency</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L1036" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSAgency</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>, <strong><code>include_series_count</code></strong>=<em><code>True</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
+<h2 id="RSAgency" class="doc_header"><code>class</code> <code>RSAgency</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L1035" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSAgency</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>, <strong><code>include_series_count</code></strong>=<em><code>True</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
 </blockquote>
 <p>Class used for extracting data about an individual agency.
 You need to supply the following parameter:</p>
@@ -2200,7 +2201,7 @@ You need to supply the following parameter:</p>
    &#39;title&#39;: &#39;Department of Supply, Central Office&#39;}],
  &#39;controlled_agencies&#39;: [],
  &#39;associated_people&#39;: [],
- &#39;retrieved&#39;: &#39;2021-04-25T14:35:31.177914+10:00&#39;,
+ &#39;retrieved&#39;: &#39;2021-04-26T16:46:39.348405+10:00&#39;,
  &#39;date_str&#39;: &#39;01 Jan 1949 -  30 Apr 1952&#39;,
  &#39;start_date&#39;: &#39;1949-01-01&#39;,
  &#39;end_date&#39;: &#39;1952-04-30&#39;,
@@ -2282,7 +2283,7 @@ You need to supply the following parameter:</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSAgencySearch" class="doc_header"><code>class</code> <code>RSAgencySearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L1099" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSAgencySearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>1</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
+<h2 id="RSAgencySearch" class="doc_header"><code>class</code> <code>RSAgencySearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L1098" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSAgencySearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>1</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
 </blockquote>
 <p>Search for agencies in RecordSearch.</p>
 <p>Supply any of the agency search parameters as kwargs to initialise the search.</p>
@@ -2497,7 +2498,7 @@ to retrieve the complete result set.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSearch.get_results" class="doc_header"><code>RSSearch.get_results</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L491" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.get_results</code>(<strong><code>page</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="RSSearch.get_results" class="doc_header"><code>RSSearch.get_results</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L490" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.get_results</code>(<strong><code>page</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Return a list of results from a search results page.</p>
 <p>The <code>page</code> value is incremented with each request, so you can call this method
@@ -2643,7 +2644,7 @@ this method will return an empty list.</p>
    &#39;date_str&#39;: &#39;1996 - 1998&#39;,
    &#39;start_date&#39;: &#39;1996&#39;,
    &#39;end_date&#39;: &#39;1998&#39;}],
- &#39;retrieved&#39;: &#39;2021-04-26T10:09:06.603212+10:00&#39;}</pre>
+ &#39;retrieved&#39;: &#39;2021-04-26T16:46:43.523943+10:00&#39;}</pre>
 </div>
 
 </div>
@@ -2672,7 +2673,7 @@ this method will return an empty list.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSearch.refresh_cache" class="doc_header"><code>RSSearch.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L537" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.refresh_cache</code>()</p>
+<h4 id="RSSearch.refresh_cache" class="doc_header"><code>RSSearch.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L536" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.refresh_cache</code>()</p>
 </blockquote>
 <p>Delete data for this search from the cache, then retrieve a fresh version from RecordSearch.</p>
 

@@ -408,12 +408,11 @@ class RSEntity(RSBase):
             value = None
         return value
 
-    def get_details(self, html):
+    def get_details(self):
         '''
         Extract the main results table from the HTML page.
         '''
-        soup = BeautifulSoup(html)
-        details = soup.find('div', 'mainDetailsTable')
+        details = self.browser.page.find('div', 'mainDetailsTable')
         return details
 
     def get_formatted_dates(self, label, prefix=''):
@@ -672,7 +671,7 @@ class RSItem(RSEntity):
         '''
         url = f'https://recordsearch.naa.gov.au/SearchNRetrieve/Interface/ViewImage.aspx?B={self.identifier}'
         response = s.get(url)
-        soup = BeautifulSoup(response.text)
+        soup = BeautifulSoup(response.text, features='lxml')
         try:
             # The last page number from the navigation will be the total number of pages
             pages = int(soup.find('span', attrs={'id': "lblEndPage"}).string)
@@ -701,8 +700,8 @@ class RSItem(RSEntity):
         # If not in the cache and the details are not supplied, get it from RS.
         except KeyError:
             if not self.details:
-                response = self.get_entity_page()
-                self.details = self.get_details(response.text)
+                self.get_entity_page()
+                self.details = self.get_details()
             if self.details:
                 item = {
                     'title': self.get_value('Title'),
@@ -912,8 +911,8 @@ class RSSeries(RSEntity):
         # If not in the cache and the details are not supplied, get it from RS.
         except KeyError:
             if not self.details:
-                response = self.get_entity_page()
-                self.details = self.get_details(response.text)
+                self.get_entity_page()
+                self.details = self.get_details()
             if self.details:
                 series = {
                     'identifier': self.identifier,
@@ -1064,8 +1063,8 @@ class RSAgency(RSEntity):
         # If not in the cache and the details are not supplied, get it from RS.
         except KeyError:
             if not self.details:
-                response = self.get_entity_page()
-                self.details = self.get_details(response.text)
+                self.get_entity_page()
+                self.details = self.get_details()
             if self.details:
                 agency = {
                     'identifier': self.identifier,
