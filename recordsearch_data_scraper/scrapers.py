@@ -16,6 +16,7 @@ import datetime
 import math
 import arrow
 from sqlitedict import SqliteDict
+import time
 
 s = requests.Session()
 retries = Retry(total=5, backoff_factor=1, status_forcelist=[ 502, 503, 504 ])
@@ -484,6 +485,7 @@ class RSSearch(RSBase):
         full_results = []
         for result in results:
             full_results.append(self.entity(result['identifier']).data)
+            time.sleep(0.5)
         return full_results
 
     def get_results(self, page=None):
@@ -883,6 +885,7 @@ class RSSeries(RSEntity):
         totals = {}
         for status in ACCESS:
             totals[status] = RSItemSearch(series=self.identifier, access=status).total_results
+            time.sleep(0.5)
         return totals
 
     def generate_cache_key(self):
