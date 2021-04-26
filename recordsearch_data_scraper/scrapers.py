@@ -21,6 +21,7 @@ s = requests.Session()
 retries = Retry(total=5, backoff_factor=1, status_forcelist=[ 502, 503, 504 ])
 s.mount('https://', HTTPAdapter(max_retries=retries))
 s.mount('http://', HTTPAdapter(max_retries=retries))
+
 cache_db = SqliteDict('./cache_db.sqlite', autocommit=True)
 
 RS_URLS = {
@@ -295,6 +296,13 @@ class RSBase(object):
     Base class with utility methods.
     '''
 
+    def create_browser(self):
+        s = requests.Session()
+        retries = Retry(total=5, backoff_factor=1, status_forcelist=[ 502, 503, 504 ])
+        s.mount('https://', HTTPAdapter(max_retries=retries))
+        s.mount('http://', HTTPAdapter(max_retries=retries))
+        self.browser = mechanicalsoup.StatefulBrowser(session=s)
+
     def parse_date(self, date_string):
         '''
         Tests a date string against a list of expected formats.
@@ -351,8 +359,8 @@ class RSEntity(RSBase):
     '''
 
     def __init__(self, identifier=None, **kwargs):
-        self.browser = mechanicalsoup.StatefulBrowser(session=s)
         self.identifier = identifier
+        self.create_browser()
 
     def get_entity_page(self):
         item_url = f'{RS_URLS[self.entity_type]}{self.identifier}'
@@ -463,7 +471,7 @@ class RSSearch(RSBase):
     '''
 
     def __init__(self, results_per_page=20, sort=None, record_detail='brief', **kwargs):
-        self.browser = mechanicalsoup.StatefulBrowser(session=s)
+        self.create_browser()
         self.page = 0
         params = locals().copy()
         params.pop('self')
