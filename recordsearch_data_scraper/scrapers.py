@@ -302,7 +302,7 @@ class RSBase(object):
         retries = Retry(total=5, backoff_factor=1, status_forcelist=[ 502, 503, 504 ])
         s.mount('https://', HTTPAdapter(max_retries=retries))
         s.mount('http://', HTTPAdapter(max_retries=retries))
-        self.browser = mechanicalsoup.StatefulBrowser(session=s)
+        self.browser = mechanicalsoup.StatefulBrowser(soup_config={'features': 'lxml'}, session=s)
 
     def parse_date(self, date_string):
         '''
