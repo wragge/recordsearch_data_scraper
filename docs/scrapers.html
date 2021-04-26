@@ -138,7 +138,7 @@ RecordSearch entities, so don't use this directly. Use one of the subclasses.</p
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSItem" class="doc_header"><code>class</code> <code>RSItem</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L620" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSItem</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
+<h2 id="RSItem" class="doc_header"><code>class</code> <code>RSItem</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L619" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSItem</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
 </blockquote>
 <p>Class used for extracting data about an individual item (usually a file, but can be a volume, box, photograph etc) from RecordSearch.</p>
 <p>You need to supply one of the following parameters:</p>
@@ -408,7 +408,7 @@ RecordSearch entities, so don't use this directly. Use one of the subclasses.</p
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSItemSearch" class="doc_header"><code>class</code> <code>RSItemSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L723" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSItemSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>9</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
+<h2 id="RSItemSearch" class="doc_header"><code>class</code> <code>RSItemSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L722" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSItemSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>9</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
 </blockquote>
 <p>Search for items in RecordSearch.</p>
 <p>Supply any of the item search parameters as kwargs to initialise the search.</p>
@@ -975,6 +975,13 @@ this method will return an empty list.</p>
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Calling <code>.refresh_cache</code> will remove all of the data for this search from the cache, and set the results page back to 1.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1003,37 +1010,6 @@ this method will return an empty list.</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">item_results</span><span class="o">.</span><span class="n">refresh_cache</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>kw_wragge_record_detail_brief_results_per_page_20_sort_9
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
 <div class="output">
@@ -1042,7 +1018,7 @@ this method will return an empty list.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSSeries" class="doc_header"><code>class</code> <code>RSSeries</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L815" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSeries</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>, <strong><code>include_number_digitised</code></strong>=<em><code>True</code></em>, <strong><code>include_access_status</code></strong>=<em><code>True</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
+<h2 id="RSSeries" class="doc_header"><code>class</code> <code>RSSeries</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L814" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSeries</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>, <strong><code>include_number_digitised</code></strong>=<em><code>True</code></em>, <strong><code>include_access_status</code></strong>=<em><code>True</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
 </blockquote>
 <p>Class used for extracting data about an individual series.
 You need to supply the following parameter:</p>
@@ -1384,7 +1360,7 @@ include the number of items in this series in each of the access status categori
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSeries.refresh_cache" class="doc_header"><code>RSSeries.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L889" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSeries.refresh_cache</code>()</p>
+<h4 id="RSSeries.refresh_cache" class="doc_header"><code>RSSeries.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L888" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSeries.refresh_cache</code>()</p>
 </blockquote>
 <p>Delete data for this item from the cache, then extract a fresh version from RecordSearch.</p>
 
@@ -1439,7 +1415,7 @@ include the number of items in this series in each of the access status categori
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSSeriesSearch" class="doc_header"><code>class</code> <code>RSSeriesSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L941" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSeriesSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>1</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
+<h2 id="RSSeriesSearch" class="doc_header"><code>class</code> <code>RSSeriesSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L940" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSeriesSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>1</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
 </blockquote>
 <p>Search for series in RecordSearch.</p>
 <p>Supply any of the series search parameters as kwargs to initialise the search.</p>
@@ -1501,7 +1477,7 @@ to retrieve the complete result set.</p>
 <tr>
 <td style="text-align:left"><strong>kw_options</strong></td>
 <td style="text-align:left">Select</td>
-<td style="text-align:left">How to combine the keywords – see <a href="#Keyword-options">keyword options</a></td>
+<td style="text-align:left">How to combine the keywords – see <a href="#Series-keyword-options">keyword options</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>kw_exclude</strong></td>
@@ -1511,7 +1487,7 @@ to retrieve the complete result set.</p>
 <tr>
 <td style="text-align:left"><strong>kw_exclude_options</strong></td>
 <td style="text-align:left">Select</td>
-<td style="text-align:left">How to combine the keywords – see <a href="#Keyword-options">keyword options</a></td>
+<td style="text-align:left">How to combine the keywords – see <a href="#Series-keyword-options">keyword options</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>search_notes</strong></td>
@@ -1536,25 +1512,68 @@ to retrieve the complete result set.</p>
 <tr>
 <td style="text-align:left"><strong>formats</strong></td>
 <td style="text-align:left">Select</td>
-<td style="text-align:left">Limit to series with items in this format – see <a href="#Format-options">format options</a></td>
+<td style="text-align:left">Limit to series with items in this format – see <a href="#Series-format-options">format options</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>formats_exclude</strong></td>
 <td style="text-align:left">Select</td>
-<td style="text-align:left">Exclude series with items in this format  – see <a href="#Format-options">format options</a></td>
+<td style="text-align:left">Exclude series with items in this format  – see <a href="#Series-format-options">format options</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>locations</strong></td>
 <td style="text-align:left">Select</td>
-<td style="text-align:left">Limit to series held in this location – see list of <a href="#Location-options">locations</a></td>
+<td style="text-align:left">Limit to series held in this location – see list of <a href="#Series-location-options">locations</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>locations_exclude</strong></td>
 <td style="text-align:left">Select</td>
-<td style="text-align:left">Exclude series held in this location – see list of <a href="#Location-options">locations</a></td>
+<td style="text-align:left">Exclude series held in this location – see list of <a href="#Series-location-options">locations</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>agency_recording</strong></td>
+<td style="text-align:left">Select</td>
+<td style="text-align:left">Limit to series created by this agency or person</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>agency_controlling</strong></td>
+<td style="text-align:left">Select</td>
+<td style="text-align:left">Limit to series controlled by this agency or person</td>
 </tr>
 </tbody>
 </table>
+<h3 id="Series-keyword-options">Series keyword options<a class="anchor-link" href="#Series-keyword-options"> </a></h3><p>Use one of the following values to specify how keywords or phrases should be treated using the <code>kw_options</code> parameter. The default is 'ALL'.</p>
+<ul>
+<li><strong>'ALL'</strong> (default) – must include all keywords</li>
+<li><strong>'ANY'</strong> – must include at least one of the keywords</li>
+<li><strong>'EXACT'</strong> – treat the keywords as a phrase</li>
+</ul>
+<h3 id="Series-location-options">Series location options<a class="anchor-link" href="#Series-location-options"> </a></h3><p>Use one of the following values with the <code>locations</code> and <code>locations_exclude</code> parameters to limit your results to items held in that location. The default is to include all locations.</p>
+<ul>
+<li><strong>'NAT,ACT'</strong> – National office (ACT)</li>
+<li><strong>'AWM'</strong> – Australian War Memorial</li>
+<li><strong>'NSW'</strong></li>
+<li><strong>'NT'</strong></li>
+<li><strong>'QLD'</strong></li>
+<li><strong>'SA'</strong></li>
+<li><strong>'TAS'</strong></li>
+<li><strong>'VIC'</strong></li>
+<li><strong>'WA'</strong></li>
+</ul>
+<h3 id="Series-format-options">Series format options<a class="anchor-link" href="#Series-format-options"> </a></h3><p>Use one of the following values with the <code>formats</code> and <code>formats_exclude</code> parameters to limit your results to series containing that format. The default is to include all formats.</p>
+<ul>
+<li><strong>'Paper files and documents'</strong></li>
+<li><strong>'Index cards'</strong></li>
+<li><strong>'Bound volumes'</strong></li>
+<li><strong>'Cartographic records'</strong></li>
+<li><strong>'Photographs'</strong></li>
+<li><strong>'Microforms'</strong></li>
+<li><strong>'Audio-visual records'</strong></li>
+<li><strong>'Audio records'</strong></li>
+<li><strong>'Electronic records'</strong></li>
+<li><strong>'3-dimensional records'</strong></li>
+<li><strong>'Scientific specimens'</strong></li>
+<li><strong>'Textiles'</strong></li>
+</ul>
 <h3 id="Examples">Examples<a class="anchor-link" href="#Examples"> </a></h3><p>Initialise a search.</p>
 
 </div>
@@ -1960,6 +1979,13 @@ this method will return an empty list.</p>
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Calling <code>.refresh_cache</code> will remove all of the data for this search from the cache, and set the results page back to 1.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1971,7 +1997,32 @@ this method will return an empty list.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSAgency" class="doc_header"><code>class</code> <code>RSAgency</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L1026" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSAgency</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>, <strong><code>include_series_count</code></strong>=<em><code>True</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
+<h4 id="RSSearch.refresh_cache" class="doc_header"><code>RSSearch.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L527" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.refresh_cache</code>()</p>
+</blockquote>
+<p>Delete data for this search from the cache, then retrieve a fresh version from RecordSearch.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="RSAgency" class="doc_header"><code>class</code> <code>RSAgency</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L1025" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSAgency</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>, <strong><code>include_series_count</code></strong>=<em><code>True</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
 </blockquote>
 <p>Class used for extracting data about an individual agency.
 You need to supply the following parameter:</p>
@@ -2066,7 +2117,7 @@ You need to supply the following parameter:</p>
 <li><code>number_of_series</code> (integer) – number of series created by this agency</li>
 <li><code>retrieved</code> (ISO formatted date)</li>
 </ul>
-<h3 id="Examples">Examples<a class="anchor-link" href="#Examples"> </a></h3><p>To retrieve information about an agency, just give <code>RSAgency()</code> the agency identifier.</p>
+<h3 id="Examples">Examples<a class="anchor-link" href="#Examples"> </a></h3><p>To retrieve information about an agency, just give <a href="/recordsearch_data_scraper/scrapers.html#RSAgency"><code>RSAgency</code></a> the agency identifier.</p>
 
 </div>
 </div>
@@ -2164,6 +2215,37 @@ You need to supply the following parameter:</p>
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Use <code>agency.data[FIELD NAME]</code> to access individual fields. The <code>agency_status</code> value of this agency should be 'Head Office'.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">agency</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;agency_status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Head Office&#39;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The extracted data is saved into a simple key-value cache to speed up repeat requests. If you want to scrape a fresh version, use <code>.refresh_cache()</code>.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -2192,23 +2274,6 @@ You need to supply the following parameter:</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agency</span><span class="o">.</span><span class="n">refresh_cache</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 <div class="output_wrapper">
 <div class="output">
@@ -2217,7 +2282,7 @@ You need to supply the following parameter:</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSAgencySearch" class="doc_header"><code>class</code> <code>RSAgencySearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L1089" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSAgencySearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>1</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
+<h2 id="RSAgencySearch" class="doc_header"><code>class</code> <code>RSAgencySearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L1088" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSAgencySearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>1</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
 </blockquote>
 <p>Search for agencies in RecordSearch.</p>
 <p>Supply any of the agency search parameters as kwargs to initialise the search.</p>
@@ -2279,7 +2344,7 @@ to retrieve the complete result set.</p>
 <tr>
 <td style="text-align:left"><strong>kw_options</strong></td>
 <td style="text-align:left">Select</td>
-<td style="text-align:left">How to combine the keywords – see <a href="#Keyword-options">keyword options</a></td>
+<td style="text-align:left">How to combine the keywords – see <a href="#Agency-keyword-options">keyword options</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>kw_exclude</strong></td>
@@ -2289,12 +2354,12 @@ to retrieve the complete result set.</p>
 <tr>
 <td style="text-align:left"><strong>kw_exclude_options</strong></td>
 <td style="text-align:left">Select</td>
-<td style="text-align:left">How to combine the keywords – see <a href="#Keyword-options">keyword options</a></td>
+<td style="text-align:left">How to combine the keywords – see <a href="#Agency-keyword-options">keyword options</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>function</strong></td>
 <td style="text-align:left">Text</td>
-<td style="text-align:left">Limit to agencies that performed this function</td>
+<td style="text-align:left">Limit to agencies that performed this function – see <a href="#Agency-function-note">note</a></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>date_from</strong></td>
@@ -2328,6 +2393,12 @@ to retrieve the complete result set.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="Agency-keyword-options">Agency keyword options<a class="anchor-link" href="#Agency-keyword-options"> </a></h3><p>Use one of the following values to specify how keywords or phrases should be treated using the <code>kw_options</code> parameter. The default is 'ALL'.</p>
+<ul>
+<li><strong>'ALL'</strong> (default) – must include all keywords</li>
+<li><strong>'ANY'</strong> – must include at least one of the keywords</li>
+<li><strong>'EXACT'</strong> – treat the keywords as a phrase</li>
+</ul>
 <h3 id="Agency-function-note">Agency function note<a class="anchor-link" href="#Agency-function-note"> </a></h3><p>In theory, functions are a controlled, hierarchical list, but previous examinations have shown that the use of functions in RecordSearch can be inconsistent. Here's a <a href="https://github.com/GLAM-Workbench/recordsearch/blob/master/data/functions.txt">list of functions</a> extracted from the RecordSearch interface that you can use as values with the <code>function</code> parameter.</p>
 <h3 id="Agency-location-options">Agency location options<a class="anchor-link" href="#Agency-location-options"> </a></h3><p>Use one of the following values with the <code>locations</code> and <code>locations_exclude</code> parameters to limit your results to agencies in that location. The default is to include all locations.</p>
 <ul>
@@ -2353,7 +2424,8 @@ to retrieve the complete result set.</p>
 <li><strong>'LO'</strong> – Local Office</li>
 <li><strong>'NONEX'</strong> – Non-Executive government agency (Courts, Parliament)</li>
 </ul>
-<h3 id="Examples">Examples<a class="anchor-link" href="#Examples"> </a></h3>
+<h3 id="Examples">Examples<a class="anchor-link" href="#Examples"> </a></h3><p>Search for all agencies that have performed the 'SCIENCE' function.</p>
+
 </div>
 </div>
 </div>
@@ -2364,7 +2436,7 @@ to retrieve the complete result set.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agency_search</span> <span class="o">=</span> <span class="n">RSAgencySearch</span><span class="p">(</span><span class="n">kw</span><span class="o">=</span><span class="s1">&#39;science&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agency_search</span> <span class="o">=</span> <span class="n">RSAgencySearch</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="s1">&#39;science&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -2374,6 +2446,13 @@ to retrieve the complete result set.</p>
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Initialising the <a href="/recordsearch_data_scraper/scrapers.html#RSAgencySearch"><code>RSAgencySearch</code></a> class sets up the search and retrieves some information about the results set. For example, to see the total number of results, we just access the <code>.total_results</code> attribute.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -2396,7 +2475,39 @@ to retrieve the complete result set.</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>95</pre>
+<pre>58</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="RSSearch.get_results" class="doc_header"><code>RSSearch.get_results</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L481" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.get_results</code>(<strong><code>page</code></strong>=<em><code>None</code></em>)</p>
+</blockquote>
+<p>Return a list of results from a search results page.</p>
+<p>The <code>page</code> value is incremented with each request, so you can call this method
+in a loop to retrieve the complete results set. When you reach then of the results,
+this method will return an empty list.</p>
+<p>Optional parameter:</p>
+<ul>
+<li><code>page</code> – request a specific page from the results set</li>
+</ul>
+
 </div>
 
 </div>
@@ -2429,109 +2540,142 @@ to retrieve the complete result set.</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;total_results&#39;: 95,
+<pre>{&#39;total_results&#39;: 58,
  &#39;page&#39;: 1,
  &#39;number_of_results&#39;: 20,
- &#39;results&#39;: [{&#39;identifier&#39;: &#39;CA 492&#39;,
-   &#39;title&#39;: &#39;Advisory Council of Science and Industry&#39;,
-   &#39;date_str&#39;: &#39;1916 - 1920&#39;,
-   &#39;start_date&#39;: &#39;1916&#39;,
-   &#39;end_date&#39;: &#39;1920&#39;},
-  {&#39;identifier&#39;: &#39;CA 550&#39;,
-   &#39;title&#39;: &#39;Commonwealth Institute of Science and Industry&#39;,
-   &#39;date_str&#39;: &#39;1920 - 1926&#39;,
-   &#39;start_date&#39;: &#39;1920&#39;,
-   &#39;end_date&#39;: &#39;1926&#39;},
-  {&#39;identifier&#39;: &#39;CA 1196&#39;,
-   &#39;title&#39;: &#39;Department of Education and Science, Central Office&#39;,
-   &#39;date_str&#39;: &#39;1966 - 1972&#39;,
-   &#39;start_date&#39;: &#39;1966&#39;,
-   &#39;end_date&#39;: &#39;1972&#39;},
-  {&#39;identifier&#39;: &#39;CA 1300&#39;,
-   &#39;title&#39;: &#39;Australian Capital Territory Branch/ (by 1968) Section, Department of Education and Science&#39;,
-   &#39;date_str&#39;: &#39;by1968 - 1969&#39;,
-   &#39;start_date&#39;: None,
-   &#39;end_date&#39;: &#39;1969&#39;},
-  {&#39;identifier&#39;: &#39;CA 1302&#39;,
-   &#39;title&#39;: &#39;Department of Education and Science, Northern Territory Office&#39;,
-   &#39;date_str&#39;: &#39;1968 - 1971&#39;,
-   &#39;start_date&#39;: &#39;1968&#39;,
-   &#39;end_date&#39;: &#39;1971&#39;},
-  {&#39;identifier&#39;: &#39;CA 1318&#39;,
-   &#39;title&#39;: &#39;International Education Branch, Department of Education and Science&#39;,
-   &#39;date_str&#39;: &#39;1967 - 1969&#39;,
-   &#39;start_date&#39;: &#39;1967&#39;,
-   &#39;end_date&#39;: &#39;1969&#39;},
-  {&#39;identifier&#39;: &#39;CA 1486&#39;,
-   &#39;title&#39;: &#39;Department of Science [I], Central Office&#39;,
-   &#39;date_str&#39;: &#39;1972 - 1975&#39;,
-   &#39;start_date&#39;: &#39;1972&#39;,
-   &#39;end_date&#39;: &#39;1975&#39;},
-  {&#39;identifier&#39;: &#39;CA 1545&#39;,
-   &#39;title&#39;: &#39;Department of Education and Science, State Office, Hobart&#39;,
-   &#39;date_str&#39;: &#39;1966 - 1972&#39;,
-   &#39;start_date&#39;: &#39;1966&#39;,
-   &#39;end_date&#39;: &#39;1972&#39;},
-  {&#39;identifier&#39;: &#39;CA 1604&#39;,
-   &#39;title&#39;: &#39;Department of Education and Science, State Office, New South Wales&#39;,
-   &#39;date_str&#39;: &#39;circa1967 - 1972&#39;,
-   &#39;start_date&#39;: None,
-   &#39;end_date&#39;: &#39;1972&#39;},
-  {&#39;identifier&#39;: &#39;CA 1751&#39;,
-   &#39;title&#39;: &#39;Department of Education and Science, State Office, Perth&#39;,
-   &#39;date_str&#39;: &#39;1967 - 1972&#39;,
-   &#39;start_date&#39;: &#39;1967&#39;,
-   &#39;end_date&#39;: &#39;1972&#39;},
-  {&#39;identifier&#39;: &#39;CA 1784&#39;,
-   &#39;title&#39;: &#39;Department of Education and Science, State Office, Victoria&#39;,
-   &#39;date_str&#39;: &#39;1967 - 1972&#39;,
-   &#39;start_date&#39;: &#39;1967&#39;,
-   &#39;end_date&#39;: &#39;1972&#39;},
-  {&#39;identifier&#39;: &#39;CA 1888&#39;,
-   &#39;title&#39;: &#39;Department of Science and Consumer Affairs, Central Office&#39;,
-   &#39;date_str&#39;: &#39;1975 - 1975&#39;,
-   &#39;start_date&#39;: &#39;1975&#39;,
-   &#39;end_date&#39;: &#39;1975&#39;},
+ &#39;results&#39;: [{&#39;identifier&#39;: &#39;CA 49&#39;,
+   &#39;title&#39;: &#39;Department of Post-War Reconstruction, Central Office&#39;,
+   &#39;date_str&#39;: &#39;1942 - 1950&#39;,
+   &#39;start_date&#39;: &#39;1942&#39;,
+   &#39;end_date&#39;: &#39;1950&#39;},
+  {&#39;identifier&#39;: &#39;CA 333&#39;,
+   &#39;title&#39;: &#39;Defence Scientific Advisory Committee&#39;,
+   &#39;date_str&#39;: &#39;1947 - 1948&#39;,
+   &#39;start_date&#39;: &#39;1947&#39;,
+   &#39;end_date&#39;: &#39;1948&#39;},
+  {&#39;identifier&#39;: &#39;CA 429&#39;,
+   &#39;title&#39;: &#39;Scientific Advisory Committee, Foodstuffs&#39;,
+   &#39;date_str&#39;: &#39;1943 - 1947&#39;,
+   &#39;start_date&#39;: &#39;1943&#39;,
+   &#39;end_date&#39;: &#39;1947&#39;},
   {&#39;identifier&#39;: &#39;CA 1936&#39;,
    &#39;title&#39;: &#39;Senate Standing Committee on Education, Science and the Arts&#39;,
    &#39;date_str&#39;: &#39;1971 - 1976&#39;,
    &#39;start_date&#39;: &#39;1971&#39;,
    &#39;end_date&#39;: &#39;1976&#39;},
-  {&#39;identifier&#39;: &#39;CA 1962&#39;,
-   &#39;title&#39;: &#39;Department of Science [II], Central Office&#39;,
-   &#39;date_str&#39;: &#39;1975 - 1978&#39;,
-   &#39;start_date&#39;: &#39;1975&#39;,
-   &#39;end_date&#39;: &#39;1978&#39;},
-  {&#39;identifier&#39;: &#39;CA 2074&#39;,
-   &#39;title&#39;: &#39;Interim Australian Science and Technology Council&#39;,
-   &#39;date_str&#39;: &#39;1975 - 1977&#39;,
-   &#39;start_date&#39;: &#39;1975&#39;,
-   &#39;end_date&#39;: &#39;1977&#39;},
-  {&#39;identifier&#39;: &#39;CA 2312&#39;,
-   &#39;title&#39;: &#39;Department of Education and Science, Regional Office, Adelaide (also known as South Australian Branch Office, 1967-1969)&#39;,
-   &#39;date_str&#39;: &#39;1967 - 1972&#39;,
-   &#39;start_date&#39;: &#39;1967&#39;,
-   &#39;end_date&#39;: &#39;1972&#39;},
-  {&#39;identifier&#39;: &#39;CA 2314&#39;,
-   &#39;title&#39;: &#39;Department of Education and Science, State Office, Brisbane, Queensland&#39;,
-   &#39;date_str&#39;: &#39;1967 - 1972&#39;,
-   &#39;start_date&#39;: &#39;1967&#39;,
-   &#39;end_date&#39;: &#39;1972&#39;},
-  {&#39;identifier&#39;: &#39;CA 2407&#39;,
-   &#39;title&#39;: &#39;Australian Institute of Marine Science&#39;,
-   &#39;date_str&#39;: &#39;1970 - &#39;,
-   &#39;start_date&#39;: &#39;1970&#39;,
-   &#39;end_date&#39;: None},
   {&#39;identifier&#39;: &#39;CA 2423&#39;,
    &#39;title&#39;: &#39;Australian Science, Technology and Engineering Council (ASTEC)&#39;,
    &#39;date_str&#39;: &#39;1977 - 1989&#39;,
    &#39;start_date&#39;: &#39;1977&#39;,
    &#39;end_date&#39;: &#39;1989&#39;},
-  {&#39;identifier&#39;: &#39;CA 2592&#39;,
-   &#39;title&#39;: &#39;Northern Territory Education Branch [Darwin] \n(a) Department of Education and Science, Central Office (until 1972)\n(b) Department of Education, Central Office&#39;,
-   &#39;date_str&#39;: &#39;1971 - 1973&#39;,
-   &#39;start_date&#39;: &#39;1971&#39;,
-   &#39;end_date&#39;: &#39;1973&#39;}]}</pre>
+  {&#39;identifier&#39;: &#39;CA 3277&#39;,
+   &#39;title&#39;: &#39;Senate Standing Committee on Science and the Environment/ (from 1983) Senate Standing Committee on Science, Technology and the Environment&#39;,
+   &#39;date_str&#39;: &#39;1976 - 1987&#39;,
+   &#39;start_date&#39;: &#39;1976&#39;,
+   &#39;end_date&#39;: &#39;1987&#39;},
+  {&#39;identifier&#39;: &#39;CA 4136&#39;,
+   &#39;title&#39;: &#39;Department of Science [III], Central Office&#39;,
+   &#39;date_str&#39;: &#39;1984 - 1987&#39;,
+   &#39;start_date&#39;: &#39;1984&#39;,
+   &#39;end_date&#39;: &#39;1987&#39;},
+  {&#39;identifier&#39;: &#39;CA 6703&#39;,
+   &#39;title&#39;: &#39;Senate Standing Committee on Industry, Science, Technology, Transport, Communications and Infrastructure&#39;,
+   &#39;date_str&#39;: &#39;1993 - 1994&#39;,
+   &#39;start_date&#39;: &#39;1993&#39;,
+   &#39;end_date&#39;: &#39;1994&#39;},
+  {&#39;identifier&#39;: &#39;CA 6944&#39;,
+   &#39;title&#39;: &#39;House of Representatives Standing Committee on Industry, Science and Resources&#39;,
+   &#39;date_str&#39;: &#39;1987 - &#39;,
+   &#39;start_date&#39;: &#39;1987&#39;,
+   &#39;end_date&#39;: None},
+  {&#39;identifier&#39;: &#39;CA 7780&#39;,
+   &#39;title&#39;: &#39;Questacon – The National Science and Technology Centre&#39;,
+   &#39;date_str&#39;: &#39;1985 - &#39;,
+   &#39;start_date&#39;: &#39;1985&#39;,
+   &#39;end_date&#39;: None},
+  {&#39;identifier&#39;: &#39;CA 7902&#39;,
+   &#39;title&#39;: &#39;Department of Industry, Science and Technology, Central Office&#39;,
+   &#39;date_str&#39;: &#39;1994 - 1996&#39;,
+   &#39;start_date&#39;: &#39;1994&#39;,
+   &#39;end_date&#39;: &#39;1996&#39;},
+  {&#39;identifier&#39;: &#39;CA 7923&#39;,
+   &#39;title&#39;: &#39;Department of Industry, Science and Technology, State Office, New South Wales&#39;,
+   &#39;date_str&#39;: &#39;1994 - 1996&#39;,
+   &#39;start_date&#39;: &#39;1994&#39;,
+   &#39;end_date&#39;: &#39;1996&#39;},
+  {&#39;identifier&#39;: &#39;CA 7924&#39;,
+   &#39;title&#39;: &#39;Department of Industry, Science and Technology, State Office, Western Australia&#39;,
+   &#39;date_str&#39;: &#39;1994 - 1996&#39;,
+   &#39;start_date&#39;: &#39;1994&#39;,
+   &#39;end_date&#39;: &#39;1996&#39;},
+  {&#39;identifier&#39;: &#39;CA 7925&#39;,
+   &#39;title&#39;: &#39;Department of Industry, Science and Technology, State Office, Queensland&#39;,
+   &#39;date_str&#39;: &#39;1994 - 1996&#39;,
+   &#39;start_date&#39;: &#39;1994&#39;,
+   &#39;end_date&#39;: &#39;1996&#39;},
+  {&#39;identifier&#39;: &#39;CA 7926&#39;,
+   &#39;title&#39;: &#39;Department of Industry, Science and Technology, State Office, South Australia&#39;,
+   &#39;date_str&#39;: &#39;1994 - 1996&#39;,
+   &#39;start_date&#39;: &#39;1994&#39;,
+   &#39;end_date&#39;: &#39;1996&#39;},
+  {&#39;identifier&#39;: &#39;CA 7927&#39;,
+   &#39;title&#39;: &#39;Department of Industry, Science and Technology, State Office, Tasmania&#39;,
+   &#39;date_str&#39;: &#39;1994 - 1996&#39;,
+   &#39;start_date&#39;: &#39;1994&#39;,
+   &#39;end_date&#39;: &#39;1996&#39;},
+  {&#39;identifier&#39;: &#39;CA 7930&#39;,
+   &#39;title&#39;: &#39;Department of Industry, Science and Technology, State Office, Victoria&#39;,
+   &#39;date_str&#39;: &#39;1994 - 1996&#39;,
+   &#39;start_date&#39;: &#39;1994&#39;,
+   &#39;end_date&#39;: &#39;1996&#39;},
+  {&#39;identifier&#39;: &#39;CA 8247&#39;,
+   &#39;title&#39;: &#39;Department of Industry, Science and Tourism, Central Office&#39;,
+   &#39;date_str&#39;: &#39;1996 - 1998&#39;,
+   &#39;start_date&#39;: &#39;1996&#39;,
+   &#39;end_date&#39;: &#39;1998&#39;},
+  {&#39;identifier&#39;: &#39;CA 8267&#39;,
+   &#39;title&#39;: &#39;Department of Industry, Science and Tourism, State Office, Queensland&#39;,
+   &#39;date_str&#39;: &#39;1996 - 1998&#39;,
+   &#39;start_date&#39;: &#39;1996&#39;,
+   &#39;end_date&#39;: &#39;1998&#39;},
+  {&#39;identifier&#39;: &#39;CA 8268&#39;,
+   &#39;title&#39;: &#39;Department of Industry, Science and Tourism, State Office, New South Wales&#39;,
+   &#39;date_str&#39;: &#39;1996 - 1998&#39;,
+   &#39;start_date&#39;: &#39;1996&#39;,
+   &#39;end_date&#39;: &#39;1998&#39;}],
+ &#39;retrieved&#39;: &#39;2021-04-26T10:09:06.603212+10:00&#39;}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Calling <code>.refresh_cache</code> will remove all of the data for this search from the cache, and set the results page back to 1.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="RSSearch.refresh_cache" class="doc_header"><code>RSSearch.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L527" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.refresh_cache</code>()</p>
+</blockquote>
+<p>Delete data for this search from the cache, then retrieve a fresh version from RecordSearch.</p>
+
 </div>
 
 </div>

@@ -13,7 +13,15 @@ The main classes are:
 * `RSAgency()` – an individual agency
 * `RSAgencySearch()` – an advanced search for agencies
 
-RecordSearch makes use of an odd assortment of sessions, redirects, and hidden forms, which make scraping a challenge. Please let me know if something isn't working as expected, as problems can be difficult to track down!
+RecordSearch makes use of an odd assortment of sessions, redirects, and hidden forms, which make scraping a challenge. Please let me know if something isn't working as expected, as problems can be difficult to pin down!
+
+This is a replacement for the original Recordsearch_tools library. The main changes are:
+
+* Requirements have been updated (dropping RoboBrowser which seems to be no longer maintained)
+* The full range of search parameters are now supported for Items, Series, and Agencies
+* There's a built-in cache for improved efficiency and speed
+
+See the [documentation](https://wragge.github.io/recordsearch_data_scraper/) for more details. And check out the [RecordSearch section](https://glam-workbench.net/recordsearch/) of the GLAM Workbench for examples of what's possible.
 
 ## Install
 
@@ -101,4 +109,4 @@ items['results'][0]
 
 
 
-The Series and Agency classes follow exactly the same pattern. See the docs for more examples.
+The Series and Agency classes follow exactly the same pattern. See the [docs](https://wragge.github.io/recordsearch_data_scraper/) for more examples.

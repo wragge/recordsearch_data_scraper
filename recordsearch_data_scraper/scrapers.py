@@ -530,7 +530,6 @@ class RSSearch(RSBase):
         '''
         cache_key = self.generate_cache_key()
         cache_key = re.sub('_page_\d+$', '', cache_key)
-        print(cache_key)
         for key in cache_db.keys():
             if cache_key in key:
                 del cache_db[key]

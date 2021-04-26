@@ -41,7 +41,14 @@ nb_path: "index.ipynb"
 <li><code>RSAgency()</code> – an individual agency</li>
 <li><code>RSAgencySearch()</code> – an advanced search for agencies</li>
 </ul>
-<p>RecordSearch makes use of an odd assortment of sessions, redirects, and hidden forms, which make scraping a challenge. Please let me know if something isn't working as expected, as problems can be difficult to track down!</p>
+<p>RecordSearch makes use of an odd assortment of sessions, redirects, and hidden forms, which make scraping a challenge. Please let me know if something isn't working as expected, as problems can be difficult to pin down!</p>
+<p>This is a replacement for the original Recordsearch_tools library. The main changes are:</p>
+<ul>
+<li>Requirements have been updated (dropping RoboBrowser which seems to be no longer maintained)</li>
+<li>The full range of search parameters are now supported for Items, Series, and Agencies</li>
+<li>There's a built-in cache for improved efficiency and speed</li>
+</ul>
+<p>See the <a href="https://wragge.github.io/recordsearch_data_scraper/">documentation</a> for more details. And check out the <a href="https://glam-workbench.net/recordsearch/">RecordSearch section</a> of the GLAM Workbench for examples of what's possible.</p>
 
 </div>
 </div>
@@ -282,7 +289,7 @@ nb_path: "index.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The Series and Agency classes follow exactly the same pattern. See the docs for more examples.</p>
+<p>The Series and Agency classes follow exactly the same pattern. See the <a href="https://wragge.github.io/recordsearch_data_scraper/">docs</a> for more examples.</p>
 
 </div>
 </div>
