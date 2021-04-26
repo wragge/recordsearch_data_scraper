@@ -32,6 +32,8 @@ See the [documentation](https://wragge.github.io/recordsearch_data_scraper/) for
 Retrieve an item using its Item ID.
 
 ```python
+from recordsearch_data_scraper.scrapers import *
+
 item = RSItem('3445411')
 ```
 
