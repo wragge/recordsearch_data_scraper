@@ -19,7 +19,7 @@ from sqlitedict import SqliteDict
 import time
 
 s = requests.Session()
-retries = Retry(total=5, backoff_factor=1, status_forcelist=[ 502, 503, 504 ])
+retries = Retry(total=10, backoff_factor=1, status_forcelist=[ 502, 503, 504 ])
 s.mount('https://', HTTPAdapter(max_retries=retries))
 s.mount('http://', HTTPAdapter(max_retries=retries))
 
@@ -299,7 +299,7 @@ class RSBase(object):
 
     def create_browser(self):
         s = requests.Session()
-        retries = Retry(total=5, backoff_factor=1, status_forcelist=[ 502, 503, 504 ])
+        retries = Retry(total=10, backoff_factor=1, status_forcelist=[ 502, 503, 504 ])
         s.mount('https://', HTTPAdapter(max_retries=retries))
         s.mount('http://', HTTPAdapter(max_retries=retries))
         self.browser = mechanicalsoup.StatefulBrowser(soup_config={'features': 'lxml'}, session=s)
@@ -346,7 +346,7 @@ class RSBase(object):
         '''
         Get a RecordSearch page, setting up a session and handling the weird redirects.
         '''
-        self.browser.open(url)
+        self.browser.open(url, timeout=30)
         # Instead of going directly to the page, you get this weird intermediary page.
         # We have to select and submit the form to redirect to the page we want.
         self.browser.select_form('form[name="t"]')
@@ -670,7 +670,7 @@ class RSItem(RSEntity):
         The file viewer is outside of RecordSearch's session system, so it can be requested directly.
         '''
         url = f'https://recordsearch.naa.gov.au/SearchNRetrieve/Interface/ViewImage.aspx?B={self.identifier}'
-        response = s.get(url)
+        response = s.get(url, timeout=30)
         soup = BeautifulSoup(response.text, features='lxml')
         try:
             # The last page number from the navigation will be the total number of pages
