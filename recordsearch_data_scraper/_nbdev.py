@@ -2,8 +2,10 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"s": "00_scrapers.ipynb",
-         "retries": "00_scrapers.ipynb",
+index = {"make_session": "00_scrapers.ipynb",
+         "make_browser": "00_scrapers.ipynb",
+         "s": "00_scrapers.ipynb",
+         "browsers": "00_scrapers.ipynb",
          "cache_db": "00_scrapers.ipynb",
          "RS_URLS": "00_scrapers.ipynb",
          "ITEM_FORM": "00_scrapers.ipynb",
