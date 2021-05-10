@@ -822,7 +822,7 @@ class RSItemSearch(RSSearch):
             items = [self.entity(details=details).data]
         # No items?
         else:
-            items = []
+            raise Exception('No results found on page!')
         # Add number of pages in digitised files
         if record_detail == 'digitised':
             items = self.get_digitised_page_counts(items)
@@ -1039,7 +1039,7 @@ class RSSeriesSearch(RSSearch):
             series = [self.entity(details=details).data]
         # No items?
         else:
-            series = []
+            raise Exception('No results found on page!')
         # Get full record information
         if record_detail == 'full':
             series = self.get_full_details(series)
@@ -1169,7 +1169,7 @@ class RSAgencySearch(RSSearch):
             agencies = [self.entity(details=details).data]
         # No items?
         else:
-            agencies = []
+            raise Exception('No results found on page!')
         # Get full item information
         if record_detail == 'full':
             agencies = self.get_full_details(agencies)
