@@ -372,8 +372,9 @@ class RSEntity(RSBase):
     Not for direct use – use the appropriate subclass instead.
     '''
 
-    def __init__(self, identifier=None, **kwargs):
+    def __init__(self, identifier=None, cache=True, **kwargs):
         self.identifier = identifier
+        self.cache = cache
         self.browser = browsers[self.entity_type]
 
     def get_entity_page(self):
@@ -386,7 +387,7 @@ class RSEntity(RSBase):
         Delete data for this entity from the cache, then extract a fresh version from RecordSearch.
         '''
         del cache_db[f'{self.entity_type}_{self.identifier}']
-        self.__init__(self.identifier)
+        self.__init__(self.identifier, self.cache)
 
     def get_cell(self, label):
         '''
@@ -496,7 +497,7 @@ class RSSearch(RSBase):
     def get_full_details(self, results):
         full_results = []
         for result in results:
-            full_results.append(self.entity(result['identifier']).data)
+            full_results.append(self.entity(result['identifier'], cache=False).data)
             time.sleep(0.5)
         return full_results
 
@@ -527,8 +528,11 @@ class RSSearch(RSBase):
 
     def process_list(self, details):
         results = []
+        retrieved = arrow.now(tz='Australia/Sydney').isoformat()
         for row in details.find_all('tr')[1:]:
-            results.append(self.process_row(row))
+            record = self.process_row(row)
+            record['retrieved'] = retrieved
+            results.append(record)
         return results
 
     def process_page(self, soup, record_detail):
@@ -565,7 +569,7 @@ class RSSearch(RSBase):
         params = self.params.copy()
         params.update(self.kwargs)
         search_key = '_'.join(sorted([f'{k}_{v}' for k, v in params.items() if v is not None]))
-        search_key = f'{search_key}_page_{self.page}'
+        search_key = f'{self.entity_type}_{search_key}_page_{self.page}'
         return search_key
 
     def search(self, results_per_page=None, sort=None, record_detail='brief', **kwargs):
@@ -654,8 +658,8 @@ class RSItem(RSEntity):
     '''
     entity_type = 'item'
 
-    def __init__(self, identifier=None, details=None):
-        super(RSItem, self).__init__(identifier)
+    def __init__(self, identifier=None, cache=True, details=None):
+        super(RSItem, self).__init__(identifier, cache)
         self.details = details
         if details:
             self.identifier = self.get_value('Item ID')
@@ -730,8 +734,9 @@ class RSItem(RSEntity):
                 }
                 item.update(self.get_formatted_dates('Contents date range', 'contents_'))
                 item.update(self.get_formatted_date('Date of decision', 'access_decision_'))
-                # Add to the cache
-                cache_db[f'item_{self.identifier}'] = item
+                if self.cache:
+                    # Add to the cache
+                    cache_db[f'item_{self.identifier}'] = item
             else:
                 item = {'identifier': self.identifier, 'error': 'Item not found'}
         return item
@@ -852,8 +857,8 @@ class RSSeries(RSEntity):
     '''
     entity_type = 'series'
 
-    def __init__(self, identifier=None, details=None, include_number_digitised=True, include_access_status=True):
-        super(RSSeries, self).__init__(identifier)
+    def __init__(self, identifier=None, cache=True, details=None, include_number_digitised=True, include_access_status=True):
+        super(RSSeries, self).__init__(identifier, cache)
         self.digitised = include_number_digitised
         self.access_status = include_access_status
         self.details = details
@@ -915,7 +920,7 @@ class RSSeries(RSEntity):
         '''
         cache_key = self.generate_cache_key()
         del cache_db[cache_key]
-        self.__init__(self.identifier, self.digitised, self.access_status)
+        self.__init__(self.identifier, self.cache, self.digitised, self.access_status)
 
     def get_series(self):
         # Try to retrieve from cache first
@@ -950,8 +955,9 @@ class RSSeries(RSEntity):
                     series['items_digitised'] = RSItemSearch(series=self.identifier, digital=True).total_results
                 if self.access_status:
                     series['access_status_totals'] = self.get_access_status_totals()
-                # Add to the cache
-                cache_db[cache_key] = series
+                if self.cache:
+                    # Add to the cache
+                    cache_db[cache_key] = series
             else:
                 series = {'identifier': self.identifier, 'error': 'Series not found'}
         return series
@@ -1058,8 +1064,8 @@ class RSAgency(RSEntity):
     '''
     entity_type = 'agency'
 
-    def __init__(self, identifier=None, details=None, include_series_count=True):
-        super(RSAgency, self).__init__(identifier)
+    def __init__(self, identifier=None, cache=True, details=None, include_series_count=True):
+        super(RSAgency, self).__init__(identifier, cache)
         self.series = include_series_count
         self.details = details
         if details:
@@ -1099,8 +1105,9 @@ class RSAgency(RSEntity):
                 agency.update(self.get_formatted_dates('Date range'))
                 if self.series:
                     agency['number_of_series'] = self.get_series_count()
-                # Add to the cache
-                cache_db[cache_key] = agency
+                if self.cache:
+                    # Add to the cache
+                    cache_db[cache_key] = agency
             else:
                 agency = {'identifier': self.identifier, 'error': 'Agency not found'}
         return agency
