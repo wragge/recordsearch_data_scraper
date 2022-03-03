@@ -334,7 +334,7 @@ class RSBase(object):
                 iso_date = arrow.get(date_string, df[0]).format(df[1])
                 return iso_date
             # No matching formats
-            except arrow.parser.ParserMatchError:
+            except (arrow.parser.ParserMatchError, ValueError):
                 pass
         return
 
