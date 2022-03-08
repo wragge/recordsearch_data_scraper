@@ -396,14 +396,14 @@ class RSEntity(RSBase):
         '''
         try:
             cell = (
-                self.details.find(text=re.compile(label)).parent.parent.find_next_siblings('td')[0]
+                self.details.find(['td', 'div'], string=re.compile(label)).parent.find_next_siblings('td')[0]
             )
         except (IndexError, AttributeError):
             # Sometimes the cell labels are inside an enclosing div,
             # but sometimes not. Try again assuming no div.
             try:
                 cell = (
-                    self.details.find(text=re.compile(label)).parent.find_next_siblings('td')[0]
+                    self.details.find(['td', 'div'], string=re.compile(label)).find_next_siblings('td')[0]
                 )
             except (IndexError, AttributeError):
                 cell = None
