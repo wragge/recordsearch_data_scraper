@@ -153,7 +153,7 @@ nb_path: "00_scrapers.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSSearch" class="doc_header"><code>class</code> <code>RSSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L481" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>None</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSBase"><code>RSBase</code></a></p>
+<h2 id="RSSearch" class="doc_header"><code>class</code> <code>RSSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L492" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>None</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSBase"><code>RSBase</code></a></p>
 </blockquote>
 <p>Base class for an advanced search in RecordSearch. There are different search forms for the different
 RecordSearch entities, so don't use this directly. Use one of the subclasses.</p>
@@ -186,7 +186,7 @@ RecordSearch entities, so don't use this directly. Use one of the subclasses.</p
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSItem" class="doc_header"><code>class</code> <code>RSItem</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L645" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSItem</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>cache</code></strong>=<em><code>True</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
+<h2 id="RSItem" class="doc_header"><code>class</code> <code>RSItem</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L656" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSItem</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>cache</code></strong>=<em><code>True</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
 </blockquote>
 <p>Class used for extracting data about an individual item (usually a file, but can be a volume, box, photograph etc) from RecordSearch.</p>
 <p>You need to supply one of the following parameters:</p>
@@ -298,12 +298,13 @@ RecordSearch entities, so don't use this directly. Use one of the subclasses.</p
  &#39;identifier&#39;: &#39;3445411&#39;,
  &#39;series&#39;: &#39;B2455&#39;,
  &#39;control_symbol&#39;: &#39;WRAGGE C L E&#39;,
+ &#39;note&#39;: &#39;&#39;,
  &#39;digitised_status&#39;: True,
  &#39;digitised_pages&#39;: 47,
  &#39;access_status&#39;: &#39;Open&#39;,
  &#39;access_decision_reasons&#39;: [],
  &#39;location&#39;: &#39;Canberra&#39;,
- &#39;retrieved&#39;: &#39;2022-03-08T15:57:10.114895+11:00&#39;,
+ &#39;retrieved&#39;: &#39;2022-03-15T21:15:10.968362+11:00&#39;,
  &#39;contents_date_str&#39;: &#39;1914 - 1920&#39;,
  &#39;contents_start_date&#39;: &#39;1914&#39;,
  &#39;contents_end_date&#39;: &#39;1920&#39;,
@@ -373,6 +374,51 @@ RecordSearch entities, so don't use this directly. Use one of the subclasses.</p
 
 <div class="output_text output_subarea output_execute_result">
 <pre>&#39;NAA: B2455, WRAGGE C L E&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Not all items have notes, but if they do, they should be included.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">item</span> <span class="o">=</span> <span class="n">RSItem</span><span class="p">(</span><span class="mi">324717</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="s1">&#39;note&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">data</span>
+
+<span class="c1"># Display the note</span>
+<span class="n">item</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;note&#39;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;Summary heading Negative of photograph of Poon Gooey available Descriptive note Photograph of Poon Gooey used in National Archives of Australia exhibition – Alien Edwardians – Chinese Immigrants and Commonwealth Government. Duplicating negative of photograph available – please see National Archives staff [ B6416 b/c #10551458]&#39;</pre>
 </div>
 
 </div>
@@ -456,7 +502,7 @@ RecordSearch entities, so don't use this directly. Use one of the subclasses.</p
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSItemSearch" class="doc_header"><code>class</code> <code>RSItemSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L749" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSItemSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>9</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
+<h2 id="RSItemSearch" class="doc_header"><code>class</code> <code>RSItemSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L761" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSItemSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>9</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
 </blockquote>
 <p>Search for items in RecordSearch.</p>
 <p>Supply any of the item search parameters as kwargs to initialise the search.</p>
@@ -733,7 +779,7 @@ to retrieve the complete result set.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSearch.get_results" class="doc_header"><code>RSSearch.get_results</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L504" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.get_results</code>(<strong><code>page</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="RSSearch.get_results" class="doc_header"><code>RSSearch.get_results</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L515" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.get_results</code>(<strong><code>page</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Return a list of results from a search results page.</p>
 <p>The <code>page</code> value is incremented with each request, so you can call this method
@@ -789,7 +835,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1917&#39;,
    &#39;contents_end_date&#39;: &#39;1917&#39;,
    &#39;digitised_status&#39;: True,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;A2487&#39;,
    &#39;control_symbol&#39;: &#39;1919/8962&#39;,
    &#39;title&#39;: &#39;[Application for free passage - Rupert Lindley Wragge]&#39;,
@@ -800,7 +846,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1918&#39;,
    &#39;contents_end_date&#39;: &#39;1919&#39;,
    &#39;digitised_status&#39;: True,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;B1535&#39;,
    &#39;control_symbol&#39;: &#39;736/23/341&#39;,
    &#39;title&#39;: &#39;[Applications for Commissions: K S Wragge, R A Fry, V J T Sharpe, J G Cameron]&#39;,
@@ -811,7 +857,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1939&#39;,
    &#39;contents_end_date&#39;: &#39;1939&#39;,
    &#39;digitised_status&#39;: False,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;AWM54&#39;,
    &#39;control_symbol&#39;: &#39;1010/4/150&#39;,
    &#39;title&#39;: &#39;[War Crimes and Trials - Affidavits and Sworn Statements:] Statements by No number RW Woodhouse; VX39749 Pte RC Woodman; 23663 Able Seaman CD Woodman; NX58655 WO/1 WJ Woodward; VX37644 Pte CA Woodward; QX15620 Pte HA Woodward; TX3959 Pte BJ Woodward; No number Capt EJ Wooldridge; No number AN Wooton; NX501953 Spr GA Worland; QX259 Capt NA Worthington; QX14395 Gnr RL Wragge; NX12233 Lt-Col JW Wright; NX70664 Capt RG Wright; VX35065 L/Bdr JH Wright; SX8474 Pte RR Wright; NX56234 Cpl AG Wright; NX27630 L/Sgt L Wrightson; NX69819 Dvr RP Wyatt; WX12593 Pte RW Wyllie&#39;,
@@ -822,7 +868,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1945&#39;,
    &#39;contents_end_date&#39;: &#39;1947&#39;,
    &#39;digitised_status&#39;: False,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;A1716&#39;,
    &#39;control_symbol&#39;: &#39;240&#39;,
    &#39;title&#39;: &#39;&#34;Wragge&#34; [NOTE: Registration and exhibit]&#39;,
@@ -833,7 +879,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1902&#39;,
    &#39;contents_end_date&#39;: &#39;1902&#39;,
    &#39;digitised_status&#39;: True,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;A1716&#39;,
    &#39;control_symbol&#39;: &#39;241&#39;,
    &#39;title&#39;: &#39;&#34;Wragge&#34; [NOTE: Registration and exhibit]&#39;,
@@ -844,7 +890,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1902&#39;,
    &#39;contents_end_date&#39;: &#39;1902&#39;,
    &#39;digitised_status&#39;: True,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;A1716&#39;,
    &#39;control_symbol&#39;: &#39;243&#39;,
    &#39;title&#39;: &#39;&#34;Wragge&#34; [NOTE: Registration and exhibit]&#39;,
@@ -855,7 +901,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1902&#39;,
    &#39;contents_end_date&#39;: &#39;1902&#39;,
    &#39;digitised_status&#39;: True,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;AWM93&#39;,
    &#39;control_symbol&#39;: &#39;22/2/83&#39;,
    &#39;title&#39;: &#39;[Australian War Memorial registry files, first series] Staff - Personal files: Mr W G Wragge&#39;,
@@ -866,7 +912,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1924&#39;,
    &#39;contents_end_date&#39;: &#39;1925&#39;,
    &#39;digitised_status&#39;: False,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;B503&#39;,
    &#39;control_symbol&#39;: &#39;Q2018&#39;,
    &#39;title&#39;: &#39;Wragge, Raymond Lindley QX14395 [Prisoners of War Trust Fund application]&#39;,
@@ -877,7 +923,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1955&#39;,
    &#39;contents_end_date&#39;: &#39;1977&#39;,
    &#39;digitised_status&#39;: False,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;B503&#39;,
    &#39;control_symbol&#39;: &#39;V3600&#39;,
    &#39;title&#39;: &#39;Wragge, Leslie James VX25877 [Prisoners of War Trust Fund application]&#39;,
@@ -888,7 +934,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1955&#39;,
    &#39;contents_end_date&#39;: &#39;1977&#39;,
    &#39;digitised_status&#39;: False,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;SP459/1&#39;,
    &#39;control_symbol&#39;: &#39;429/8/5434&#39;,
    &#39;title&#39;: &#39;Injuries - VX112202 Captain WRAGGE, H S [Box 64]&#39;,
@@ -899,7 +945,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1947&#39;,
    &#39;contents_end_date&#39;: &#39;1947&#39;,
    &#39;digitised_status&#39;: False,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;A2478&#39;,
    &#39;control_symbol&#39;: &#39;TRZECIAK H&#39;,
    &#39;title&#39;: &#39;TRZECIAK Helmut born 17 February 1920; frida (nee Wragge) born 13 November 1921; Monika born 9 January 1944; Rosemarie born 30 June 1945; Hartmut born 19 January 1952 - German - travelled per ship SKAUBRYN departing in 1954&#39;,
@@ -910,7 +956,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1954&#39;,
    &#39;contents_end_date&#39;: &#39;1954&#39;,
    &#39;digitised_status&#39;: False,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;A9951&#39;,
    &#39;control_symbol&#39;: &#39;71&#39;,
    &#39;title&#39;: &#39;Nominal Roll - Original 3501 - 3542. Wragge, Keith Clement - Zusman, Solomon&#39;,
@@ -921,7 +967,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1949&#39;,
    &#39;contents_end_date&#39;: &#39;1949&#39;,
    &#39;digitised_status&#39;: True,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;A9951&#39;,
    &#39;control_symbol&#39;: &#39;72&#39;,
    &#39;title&#39;: &#39;Nominal Roll - Duplicate 3501 - 3542. Wragge, Keith Clement - Zusman, Solomon&#39;,
@@ -932,7 +978,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1949&#39;,
    &#39;contents_end_date&#39;: &#39;1949&#39;,
    &#39;digitised_status&#39;: True,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;J1193&#39;,
    &#39;control_symbol&#39;: &#39;QX14395&#39;,
    &#39;title&#39;: &#39;Members folders, Second World War Queensland army personnel - Wragge Raymond Lindley&#39;,
@@ -943,7 +989,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1940&#39;,
    &#39;contents_end_date&#39;: &#39;1949&#39;,
    &#39;digitised_status&#39;: False,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;A10074&#39;,
    &#39;control_symbol&#39;: &#39;1926/13&#39;,
    &#39;title&#39;: &#39;WRAGGE Thomas William Eric versus COLLINS James; COLLINS Edward&#39;,
@@ -954,7 +1000,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: &#39;1926&#39;,
    &#39;contents_end_date&#39;: &#39;1926&#39;,
    &#39;digitised_status&#39;: False,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;B2455&#39;,
    &#39;control_symbol&#39;: &#39;WRAGGE A C P&#39;,
    &#39;title&#39;: &#39;Wragge Alfred Charles Peter : SERN Depot : POB Rockhampton QLD : POE Brisbane QLD : NOK W Wragge F E&#39;,
@@ -965,7 +1011,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: None,
    &#39;contents_end_date&#39;: None,
    &#39;digitised_status&#39;: True,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;B2455&#39;,
    &#39;control_symbol&#39;: &#39;WRAGGE C L E&#39;,
    &#39;title&#39;: &#39;WRAGGE Clement Lionel Egerton : SERN 647 : POB Cheadle England : POE Enoggera QLD : NOK  (Father) WRAGGE Clement Lindley&#39;,
@@ -976,7 +1022,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: None,
    &#39;contents_end_date&#39;: None,
    &#39;digitised_status&#39;: True,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;B2455&#39;,
    &#39;control_symbol&#39;: &#39;WRAGGE G S&#39;,
    &#39;title&#39;: &#39;Wragge George Stanley : SERN 5580 : POB Croydon QLD : POE Cairns QLD : NOK Rivers Mrs Elizabeth&#39;,
@@ -987,7 +1033,7 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: None,
    &#39;contents_end_date&#39;: None,
    &#39;digitised_status&#39;: True,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;},
   {&#39;series&#39;: &#39;B2455&#39;,
    &#39;control_symbol&#39;: &#39;WRAGGE J H&#39;,
    &#39;title&#39;: &#39;Wragge John Henry : SERN 6922 : POB Richmond VIC : POE Melbourne VIC : NOK W Wragge Lillian Maud&#39;,
@@ -998,8 +1044,8 @@ this method will return an empty list.</p>
    &#39;contents_start_date&#39;: None,
    &#39;contents_end_date&#39;: None,
    &#39;digitised_status&#39;: True,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.616635+11:00&#39;}],
- &#39;retrieved&#39;: &#39;2022-03-08T15:57:11.623089+11:00&#39;}</pre>
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.046846+11:00&#39;}],
+ &#39;retrieved&#39;: &#39;2022-03-15T21:15:12.053170+11:00&#39;}</pre>
 </div>
 
 </div>
@@ -1061,7 +1107,7 @@ this method will return an empty list.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSearch.refresh_cache" class="doc_header"><code>RSSearch.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L553" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.refresh_cache</code>()</p>
+<h4 id="RSSearch.refresh_cache" class="doc_header"><code>RSSearch.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L564" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.refresh_cache</code>()</p>
 </blockquote>
 <p>Delete data for this search from the cache, then retrieve a fresh version from RecordSearch.</p>
 
@@ -1086,7 +1132,7 @@ this method will return an empty list.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSSeries" class="doc_header"><code>class</code> <code>RSSeries</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L842" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSeries</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>cache</code></strong>=<em><code>True</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>, <strong><code>include_number_digitised</code></strong>=<em><code>True</code></em>, <strong><code>include_access_status</code></strong>=<em><code>True</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
+<h2 id="RSSeries" class="doc_header"><code>class</code> <code>RSSeries</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L854" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSeries</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>cache</code></strong>=<em><code>True</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>, <strong><code>include_number_digitised</code></strong>=<em><code>True</code></em>, <strong><code>include_access_status</code></strong>=<em><code>True</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
 </blockquote>
 <p>Class used for extracting data about an individual series.
 You need to supply the following parameter:</p>
@@ -1257,6 +1303,7 @@ include the number of items in this series in each of the access status categori
  &#39;arrangement&#39;: &#39;Single number&#39;,
  &#39;control_symbols&#39;: &#39;1 - 468 (with gaps)&#39;,
  &#39;locations&#39;: [{&#39;quantity&#39;: 0.72, &#39;location&#39;: &#39;ACT&#39;}],
+ &#39;note&#39;: &#39;Function and purpose This series consists of correspondence files covering a wide number of topics generally relating to Civil Defence matters. Included are reports from a wide range of sources, discussions on shelters, blood transfusion and medical services to mention a few. System of arrangement and control This series is controlled by a single number system. There are many gaps in the numbering. Finding aids All items in this series have been entered onto the National Archives of Australia item level database. Series history National Archives staff reviewed this series in 2001. Some records transferred into the National Archives of Australia’s custody were assessed as no longer justifying retention in the collection. These records were disposed of in accordance with records disposal authorities approved by the National Archives of Australia and by the Commonwealth agency responsible for the functions to which the records related. Disposal History A863/3 was withdrawn by the agency on 21 September 2016.&#39;,
  &#39;recording_agencies&#39;: [{&#39;date_str&#39;: &#39;01 Jan 1944 - 31 Dec 1948&#39;,
    &#39;start_date&#39;: &#39;1944-01-01&#39;,
    &#39;end_date&#39;: &#39;1948-12-31&#39;,
@@ -1280,7 +1327,7 @@ include the number of items in this series in each of the access status categori
    &#39;title&#39;: &#39;General correspondence files, annual single number series with &#34;CD&#34; or &#34;NDO&#34; prefix&#39;}],
  &#39;controlling_series&#39;: [],
  &#39;related_series&#39;: [],
- &#39;retrieved&#39;: &#39;2022-03-08T15:57:12.470978+11:00&#39;,
+ &#39;retrieved&#39;: &#39;2022-03-15T21:15:13.206564+11:00&#39;,
  &#39;items_described&#39;: 50,
  &#39;items_described_note&#39;: &#34;Click to see items listed on RecordSearch. Please contact the National Reference Service if you can&#39;t find the record you want as not all items from the series may be on RecordSearch.&#34;,
  &#39;contents_date_str&#39;: &#39;1944 - 1961&#39;,
@@ -1394,7 +1441,7 @@ include the number of items in this series in each of the access status categori
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSeries.refresh_cache" class="doc_header"><code>RSSeries.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L917" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSeries.refresh_cache</code>()</p>
+<h4 id="RSSeries.refresh_cache" class="doc_header"><code>RSSeries.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L929" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSeries.refresh_cache</code>()</p>
 </blockquote>
 <p>Delete data for this item from the cache, then extract a fresh version from RecordSearch.</p>
 
@@ -1449,7 +1496,7 @@ include the number of items in this series in each of the access status categori
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSSeriesSearch" class="doc_header"><code>class</code> <code>RSSeriesSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L970" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSeriesSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>1</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
+<h2 id="RSSeriesSearch" class="doc_header"><code>class</code> <code>RSSeriesSearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L983" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSSeriesSearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>1</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
 </blockquote>
 <p>Search for series in RecordSearch.</p>
 <p>Supply any of the series search parameters as kwargs to initialise the search.</p>
@@ -1755,7 +1802,7 @@ to retrieve the complete result set.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSearch.get_results" class="doc_header"><code>RSSearch.get_results</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L504" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.get_results</code>(<strong><code>page</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="RSSearch.get_results" class="doc_header"><code>RSSearch.get_results</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L515" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.get_results</code>(<strong><code>page</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Return a list of results from a search results page.</p>
 <p>The <code>page</code> value is incremented with each request, so you can call this method
@@ -1811,7 +1858,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;circa1967 - circa1973&#39;,
    &#39;contents_start_date&#39;: None,
    &#39;contents_end_date&#39;: None,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1645&#39;,
    &#39;title&#39;: &#39;Subject index cards for correspondence files, annual single number series&#39;,
    &#39;locations&#39;: [{&#39;location&#39;: &#39;ACT&#39;, &#39;quantity&#39;: &#39;1.35m&#39;}],
@@ -1822,7 +1869,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1967 - 1973&#39;,
    &#39;contents_start_date&#39;: &#39;1967&#39;,
    &#39;contents_end_date&#39;: &#39;1973&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1646&#39;,
    &#39;title&#39;: &#39;Movement cards for annual single number series&#39;,
    &#39;locations&#39;: [],
@@ -1833,7 +1880,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;circa1967 - circa1970&#39;,
    &#39;contents_start_date&#39;: None,
    &#39;contents_end_date&#39;: None,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1647&#39;,
    &#39;title&#39;: &#39;Correspondence files, DES series (Cabinet)&#39;,
    &#39;locations&#39;: [],
@@ -1844,7 +1891,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1967 - &#39;,
    &#39;contents_start_date&#39;: &#39;1967&#39;,
    &#39;contents_end_date&#39;: None,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1648&#39;,
    &#39;title&#39;: &#39;Cabinet file register&#39;,
    &#39;locations&#39;: [],
@@ -1855,7 +1902,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1967 - &#39;,
    &#39;contents_start_date&#39;: &#39;1967&#39;,
    &#39;contents_end_date&#39;: None,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1649&#39;,
    &#39;title&#39;: &#39;Subject index cards, Cabinet files&#39;,
    &#39;locations&#39;: [],
@@ -1866,7 +1913,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1967 - &#39;,
    &#39;contents_start_date&#39;: &#39;1967&#39;,
    &#39;contents_end_date&#39;: None,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1873&#39;,
    &#39;title&#39;: &#34;Staffing files [individual staff files], single number series with &#39;S&#39; prefix&#34;,
    &#39;locations&#39;: [],
@@ -1877,7 +1924,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1930 - 1983&#39;,
    &#39;contents_start_date&#39;: &#39;1930&#39;,
    &#39;contents_end_date&#39;: &#39;1983&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1904&#39;,
    &#39;title&#39;: &#34;Name index cards, DES [Department of Education and Science] State Offices (formerly &#39;COE [Commonwealth Office of Education] All States&#39;)&#34;,
    &#39;locations&#39;: [{&#39;location&#39;: &#39;ACT&#39;, &#39;quantity&#39;: &#39;0.18m&#39;}],
@@ -1888,7 +1935,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1961 - 1972&#39;,
    &#39;contents_start_date&#39;: &#39;1961&#39;,
    &#39;contents_end_date&#39;: &#39;1972&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1905&#39;,
    &#39;title&#39;: &#39;Movement Cards for Interior Files&#39;,
    &#39;locations&#39;: [],
@@ -1899,7 +1946,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1963 - 1968&#39;,
    &#39;contents_start_date&#39;: &#39;1963&#39;,
    &#39;contents_end_date&#39;: &#39;1968&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1906&#39;,
    &#39;title&#39;: &#39;Name index cards, Commonwealth Co-operation in Education, alphabetical series&#39;,
    &#39;locations&#39;: [{&#39;location&#39;: &#39;ACT&#39;, &#39;quantity&#39;: &#39;0.18m&#39;}],
@@ -1910,7 +1957,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1966 - 1972&#39;,
    &#39;contents_start_date&#39;: &#39;1966&#39;,
    &#39;contents_end_date&#39;: &#39;1972&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1907&#39;,
    &#39;title&#39;: &#39;Name index cards, Anzac Fellowship, alphabetical series&#39;,
    &#39;locations&#39;: [{&#39;location&#39;: &#39;ACT&#39;, &#39;quantity&#39;: &#39;0.18m&#39;}],
@@ -1921,7 +1968,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1967 - 1972&#39;,
    &#39;contents_start_date&#39;: &#39;1967&#39;,
    &#39;contents_end_date&#39;: &#39;1972&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1908&#39;,
    &#39;title&#39;: &#39;Name index cards, Commonwealth Scholarship and Fellowship Plan&#39;,
    &#39;locations&#39;: [{&#39;location&#39;: &#39;ACT&#39;, &#39;quantity&#39;: &#39;0.18m&#39;}],
@@ -1932,7 +1979,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1966 - 1972&#39;,
    &#39;contents_start_date&#39;: &#39;1966&#39;,
    &#39;contents_end_date&#39;: &#39;1972&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1909&#39;,
    &#39;title&#39;: &#39;Name index cards, Scholarships by Foreign Governments, alphabetical series&#39;,
    &#39;locations&#39;: [{&#39;location&#39;: &#39;ACT&#39;, &#39;quantity&#39;: &#39;0.18m&#39;}],
@@ -1943,7 +1990,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1966 - 1972&#39;,
    &#39;contents_start_date&#39;: &#39;1966&#39;,
    &#39;contents_end_date&#39;: &#39;1972&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1910&#39;,
    &#39;title&#39;: &#39;Name index cards, CBI Scholarships (Confederation of British Industries) alphabetical series&#39;,
    &#39;locations&#39;: [{&#39;location&#39;: &#39;ACT&#39;, &#39;quantity&#39;: &#39;0.09m&#39;}],
@@ -1954,7 +2001,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1968 - 1972&#39;,
    &#39;contents_start_date&#39;: &#39;1968&#39;,
    &#39;contents_end_date&#39;: &#39;1972&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1911&#39;,
    &#39;title&#39;: &#39;Name index cards, Australian American Educational Foundation, alphabetical series&#39;,
    &#39;locations&#39;: [{&#39;location&#39;: &#39;ACT&#39;, &#39;quantity&#39;: &#39;0.18m&#39;}],
@@ -1965,7 +2012,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1965 - 1972&#39;,
    &#39;contents_start_date&#39;: &#39;1965&#39;,
    &#39;contents_end_date&#39;: &#39;1972&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1912&#39;,
    &#39;title&#39;: &#34;Correspondence files, single number series with &#39;68&#39; prefix (12, 000 block) (School Libraries)&#34;,
    &#39;locations&#39;: [],
@@ -1976,7 +2023,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1968 - 1973&#39;,
    &#39;contents_start_date&#39;: &#39;1968&#39;,
    &#39;contents_end_date&#39;: &#39;1973&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1913&#39;,
    &#39;title&#39;: &#34;Register book for correspondence files, single number series with &#39;68&#39; prefix (12,000 block) (&#39;School Libraries&#39;)&#34;,
    &#39;locations&#39;: [],
@@ -1987,7 +2034,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1968 - 1973&#39;,
    &#39;contents_start_date&#39;: &#39;1968&#39;,
    &#39;contents_end_date&#39;: &#39;1973&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1914&#39;,
    &#39;title&#39;: &#39;Movement cards for correspondence files (School Libraries)&#39;,
    &#39;locations&#39;: [],
@@ -1998,7 +2045,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1968 - 1973&#39;,
    &#39;contents_start_date&#39;: &#39;1968&#39;,
    &#39;contents_end_date&#39;: &#39;1973&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A1915&#39;,
    &#39;title&#39;: &#39;Name index cards, School Libraries&#39;,
    &#39;locations&#39;: [{&#39;location&#39;: &#39;ACT&#39;, &#39;quantity&#39;: &#39;0.18m&#39;}],
@@ -2009,7 +2056,7 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: &#39;1968 - 1972&#39;,
    &#39;contents_start_date&#39;: &#39;1968&#39;,
    &#39;contents_end_date&#39;: &#39;1972&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;},
   {&#39;identifier&#39;: &#39;A2102&#39;,
    &#39;title&#39;: &#39;Paid Claims (Treasury Form 12)&#39;,
    &#39;locations&#39;: [],
@@ -2020,8 +2067,8 @@ this method will return an empty list.</p>
    &#39;contents_date_str&#39;: None,
    &#39;contents_start_date&#39;: None,
    &#39;contents_end_date&#39;: None,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.923328+11:00&#39;}],
- &#39;retrieved&#39;: &#39;2022-03-08T15:57:30.933569+11:00&#39;}</pre>
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.455299+11:00&#39;}],
+ &#39;retrieved&#39;: &#39;2022-03-15T21:15:35.465327+11:00&#39;}</pre>
 </div>
 
 </div>
@@ -2050,7 +2097,7 @@ this method will return an empty list.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSearch.refresh_cache" class="doc_header"><code>RSSearch.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L553" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.refresh_cache</code>()</p>
+<h4 id="RSSearch.refresh_cache" class="doc_header"><code>RSSearch.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L564" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.refresh_cache</code>()</p>
 </blockquote>
 <p>Delete data for this search from the cache, then retrieve a fresh version from RecordSearch.</p>
 
@@ -2075,7 +2122,7 @@ this method will return an empty list.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSAgency" class="doc_header"><code>class</code> <code>RSAgency</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L1056" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSAgency</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>cache</code></strong>=<em><code>True</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>, <strong><code>include_series_count</code></strong>=<em><code>True</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
+<h2 id="RSAgency" class="doc_header"><code>class</code> <code>RSAgency</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L1069" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSAgency</code>(<strong><code>identifier</code></strong>=<em><code>None</code></em>, <strong><code>cache</code></strong>=<em><code>True</code></em>, <strong><code>details</code></strong>=<em><code>None</code></em>, <strong><code>include_series_count</code></strong>=<em><code>True</code></em>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSEntity"><code>RSEntity</code></a></p>
 </blockquote>
 <p>Class used for extracting data about an individual agency.
 You need to supply the following parameter:</p>
@@ -2230,6 +2277,7 @@ You need to supply the following parameter:</p>
    &#39;end_date&#39;: &#39;1952-04-30&#39;,
    &#39;identifier&#39;: &#39;ENERGY&#39;,
    &#39;title&#39;: &#39;ENERGY&#39;}],
+ &#39;note&#39;: &#39;On 19 August, 1949 the Commonwealth government decided to establish an Industrial Atomic Energy Policy Committee. The Committee was set up before the end of the year. Its function was to study possible industrial applications of atomic energy and to recommend a possible programme of development. The Committee consisted of Professor Marcus Oliphant (Chairman), Dr F.W.G. White, Chief Executive Officer of the Commonwealth Scientific and Industrial Research Organization (Deputy Chairman); Professor J.P. Baxter, Professor of Chemical Engineering, New South Wales University of Technology, Mr H.P. Breen, Secretary, Department of Supply and Development, Mr H.J. Goodes, representing the Treasury, Professor L.H. Martin, Professor of Physics, University of Melbourne and Commonwealth Defence Scientific Adviser and Dr H.G. Raggett, Director of the Bureau of Mineral Resources, Geology and Geophysics. (Australian Atomic Energy Commission, First Annual Report, 1953, p.7) The Committee held a succession of meetings collecting and studying information on technical aspects of atomic energy and arrangements overseas for atomic energy development and in the light of these studies, prepared basic recommendations for an Australian programme. The Committee also prepared basic proposals for the training of staff for a research and development programme. By 1952 the Committee came to the conclusion that the problems referred to it required consideration under wider terms of reference. Accordingly it made a recommendation that it be disbanded and replaced by a new committee with revised functions. This recommendation was accepted and in April 1952 the Atomic Energy Policy Committee (CA 332) was established to replace the Industrial Atomic Energy Policy Committee. Historical agency address Subject to research Sydney, NSW&#39;,
  &#39;controlling_organisation&#39;: [{&#39;date_str&#39;: &#39;01 Jan 1949 - 30 Apr 1952&#39;,
    &#39;start_date&#39;: &#39;1949-01-01&#39;,
    &#39;end_date&#39;: &#39;1952-04-30&#39;,
@@ -2253,7 +2301,7 @@ You need to supply the following parameter:</p>
    &#39;title&#39;: &#39;Department of Supply, Central Office&#39;}],
  &#39;controlled_agencies&#39;: [],
  &#39;associated_people&#39;: [],
- &#39;retrieved&#39;: &#39;2022-03-08T15:57:31.799332+11:00&#39;,
+ &#39;retrieved&#39;: &#39;2022-03-15T21:15:36.422976+11:00&#39;,
  &#39;date_str&#39;: &#39;01 Jan 1949 -  30 Apr 1952&#39;,
  &#39;start_date&#39;: &#39;1949-01-01&#39;,
  &#39;end_date&#39;: &#39;1952-04-30&#39;,
@@ -2335,7 +2383,7 @@ You need to supply the following parameter:</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="RSAgencySearch" class="doc_header"><code>class</code> <code>RSAgencySearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L1120" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSAgencySearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>1</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
+<h2 id="RSAgencySearch" class="doc_header"><code>class</code> <code>RSAgencySearch</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L1134" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>RSAgencySearch</code>(<strong><code>results_per_page</code></strong>=<em><code>20</code></em>, <strong><code>sort</code></strong>=<em><code>1</code></em>, <strong><code>record_detail</code></strong>=<em><code>'brief'</code></em>, <strong>**<code>kwargs</code></strong>) :: <a href="/recordsearch_data_scraper/scrapers.html#RSSearch"><code>RSSearch</code></a></p>
 </blockquote>
 <p>Search for agencies in RecordSearch.</p>
 <p>Supply any of the agency search parameters as kwargs to initialise the search.</p>
@@ -2550,7 +2598,7 @@ to retrieve the complete result set.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSearch.get_results" class="doc_header"><code>RSSearch.get_results</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L504" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.get_results</code>(<strong><code>page</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="RSSearch.get_results" class="doc_header"><code>RSSearch.get_results</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L515" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.get_results</code>(<strong><code>page</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Return a list of results from a search results page.</p>
 <p>The <code>page</code> value is incremented with each request, so you can call this method
@@ -2601,122 +2649,122 @@ this method will return an empty list.</p>
    &#39;date_str&#39;: &#39;1942 - 1950&#39;,
    &#39;start_date&#39;: &#39;1942&#39;,
    &#39;end_date&#39;: &#39;1950&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 333&#39;,
    &#39;title&#39;: &#39;Defence Scientific Advisory Committee&#39;,
    &#39;date_str&#39;: &#39;1947 - 1948&#39;,
    &#39;start_date&#39;: &#39;1947&#39;,
    &#39;end_date&#39;: &#39;1948&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 429&#39;,
    &#39;title&#39;: &#39;Scientific Advisory Committee, Foodstuffs&#39;,
    &#39;date_str&#39;: &#39;1943 - 1947&#39;,
    &#39;start_date&#39;: &#39;1943&#39;,
    &#39;end_date&#39;: &#39;1947&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 1936&#39;,
    &#39;title&#39;: &#39;Senate Standing Committee on Education, Science and the Arts&#39;,
    &#39;date_str&#39;: &#39;1971 - 1976&#39;,
    &#39;start_date&#39;: &#39;1971&#39;,
    &#39;end_date&#39;: &#39;1976&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 2423&#39;,
    &#39;title&#39;: &#39;Australian Science, Technology and Engineering Council (ASTEC)&#39;,
    &#39;date_str&#39;: &#39;1977 - 1989&#39;,
    &#39;start_date&#39;: &#39;1977&#39;,
    &#39;end_date&#39;: &#39;1989&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 3277&#39;,
    &#39;title&#39;: &#39;Senate Standing Committee on Science and the Environment/ (from 1983) Senate Standing Committee on Science, Technology and the Environment&#39;,
    &#39;date_str&#39;: &#39;1976 - 1987&#39;,
    &#39;start_date&#39;: &#39;1976&#39;,
    &#39;end_date&#39;: &#39;1987&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 4136&#39;,
    &#39;title&#39;: &#39;Department of Science [III], Central Office&#39;,
    &#39;date_str&#39;: &#39;1984 - 1987&#39;,
    &#39;start_date&#39;: &#39;1984&#39;,
    &#39;end_date&#39;: &#39;1987&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 6703&#39;,
    &#39;title&#39;: &#39;Senate Standing Committee on Industry, Science, Technology, Transport, Communications and Infrastructure&#39;,
    &#39;date_str&#39;: &#39;1993 - 1994&#39;,
    &#39;start_date&#39;: &#39;1993&#39;,
    &#39;end_date&#39;: &#39;1994&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 6944&#39;,
    &#39;title&#39;: &#39;House of Representatives Standing Committee on Industry, Science and Resources&#39;,
    &#39;date_str&#39;: &#39;1987 - &#39;,
    &#39;start_date&#39;: &#39;1987&#39;,
    &#39;end_date&#39;: None,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 7780&#39;,
    &#39;title&#39;: &#39;Questacon – The National Science and Technology Centre&#39;,
    &#39;date_str&#39;: &#39;1985 - &#39;,
    &#39;start_date&#39;: &#39;1985&#39;,
    &#39;end_date&#39;: None,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 7902&#39;,
    &#39;title&#39;: &#39;Department of Industry, Science and Technology, Central Office&#39;,
    &#39;date_str&#39;: &#39;1994 - 1996&#39;,
    &#39;start_date&#39;: &#39;1994&#39;,
    &#39;end_date&#39;: &#39;1996&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 7923&#39;,
    &#39;title&#39;: &#39;Department of Industry, Science and Technology, State Office, New South Wales&#39;,
    &#39;date_str&#39;: &#39;1994 - 1996&#39;,
    &#39;start_date&#39;: &#39;1994&#39;,
    &#39;end_date&#39;: &#39;1996&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 7924&#39;,
    &#39;title&#39;: &#39;Department of Industry, Science and Technology, State Office, Western Australia&#39;,
    &#39;date_str&#39;: &#39;1994 - 1996&#39;,
    &#39;start_date&#39;: &#39;1994&#39;,
    &#39;end_date&#39;: &#39;1996&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 7925&#39;,
    &#39;title&#39;: &#39;Department of Industry, Science and Technology, State Office, Queensland&#39;,
    &#39;date_str&#39;: &#39;1994 - 1996&#39;,
    &#39;start_date&#39;: &#39;1994&#39;,
    &#39;end_date&#39;: &#39;1996&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 7926&#39;,
    &#39;title&#39;: &#39;Department of Industry, Science and Technology, State Office, South Australia&#39;,
    &#39;date_str&#39;: &#39;1994 - 1996&#39;,
    &#39;start_date&#39;: &#39;1994&#39;,
    &#39;end_date&#39;: &#39;1996&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 7927&#39;,
    &#39;title&#39;: &#39;Department of Industry, Science and Technology, State Office, Tasmania&#39;,
    &#39;date_str&#39;: &#39;1994 - 1996&#39;,
    &#39;start_date&#39;: &#39;1994&#39;,
    &#39;end_date&#39;: &#39;1996&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 7930&#39;,
    &#39;title&#39;: &#39;Department of Industry, Science and Technology, State Office, Victoria&#39;,
    &#39;date_str&#39;: &#39;1994 - 1996&#39;,
    &#39;start_date&#39;: &#39;1994&#39;,
    &#39;end_date&#39;: &#39;1996&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 8247&#39;,
    &#39;title&#39;: &#39;Department of Industry, Science and Tourism, Central Office&#39;,
    &#39;date_str&#39;: &#39;1996 - 1998&#39;,
    &#39;start_date&#39;: &#39;1996&#39;,
    &#39;end_date&#39;: &#39;1998&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 8267&#39;,
    &#39;title&#39;: &#39;Department of Industry, Science and Tourism, State Office, Queensland&#39;,
    &#39;date_str&#39;: &#39;1996 - 1998&#39;,
    &#39;start_date&#39;: &#39;1996&#39;,
    &#39;end_date&#39;: &#39;1998&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;},
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;},
   {&#39;identifier&#39;: &#39;CA 8268&#39;,
    &#39;title&#39;: &#39;Department of Industry, Science and Tourism, State Office, New South Wales&#39;,
    &#39;date_str&#39;: &#39;1996 - 1998&#39;,
    &#39;start_date&#39;: &#39;1996&#39;,
    &#39;end_date&#39;: &#39;1998&#39;,
-   &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.120571+11:00&#39;}],
- &#39;retrieved&#39;: &#39;2022-03-08T15:57:33.125752+11:00&#39;}</pre>
+   &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.810413+11:00&#39;}],
+ &#39;retrieved&#39;: &#39;2022-03-15T21:15:38.815410+11:00&#39;}</pre>
 </div>
 
 </div>
@@ -2745,7 +2793,7 @@ this method will return an empty list.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="RSSearch.refresh_cache" class="doc_header"><code>RSSearch.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L553" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.refresh_cache</code>()</p>
+<h4 id="RSSearch.refresh_cache" class="doc_header"><code>RSSearch.refresh_cache</code><a href="https://github.com/wragge/recordsearch_data_scraper/tree/master/recordsearch_data_scraper/scrapers.py#L564" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>RSSearch.refresh_cache</code>()</p>
 </blockquote>
 <p>Delete data for this search from the cache, then retrieve a fresh version from RecordSearch.</p>
 

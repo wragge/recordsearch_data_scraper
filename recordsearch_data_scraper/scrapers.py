@@ -422,6 +422,17 @@ class RSEntity(RSBase):
             value = None
         return value
 
+    def get_note(self, label):
+        cell = self.get_cell(label)
+        if cell:
+            note = cell.find('div', style='display: none;')
+            if note is None:
+                note = cell.find('div', id='notes')
+                note_text = note.get_text(' ', strip=True).replace('\n', ' ')
+        else:
+            note_text = ''
+        return note_text
+
     def get_details(self):
         '''
         Extract the main results table from the HTML page.
@@ -725,6 +736,7 @@ class RSItem(RSEntity):
                     'identifier': self.identifier,
                     'series': self.get_series(),
                     'control_symbol': self.get_value('Control symbol'),
+                    'note': self.get_note('Item note'),
                     'digitised_status': self.check_if_digitised(),
                     'digitised_pages': self.get_digitised_pages(),
                     'access_status': self.get_value('Access status'),
@@ -940,6 +952,7 @@ class RSSeries(RSEntity):
                     'arrangement': self.get_value('System of arrangement/ control'),
                     'control_symbols': self.get_value('Range of control symbols'),
                     'locations': self.get_quantity_locations(),
+                    'note': self.get_note('Series note'),
                     'recording_agencies': self.get_relations('recording'),
                     'controlling_agencies': self.get_relations('controlling'),
                     'previous_series': self.get_relations('Previous'),
@@ -1093,6 +1106,7 @@ class RSAgency(RSEntity):
                     'agency_status': self.get_value('Agency status'),
                     'location': self.get_value('Location'),
                     'functions': self.get_relations('Function'),
+                    'note': self.get_note('Agency note'),
                     'controlling_organisation': self.get_relations('Organisation controlling'),
                     'previous_agencies': self.get_relations('Previous'),
                     'subsequent_agencies': self.get_relations('Subsequent'),
