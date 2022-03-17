@@ -959,6 +959,7 @@ class RSSeries(RSEntity):
                     'subsequent_series': self.get_relations('Subsequent'),
                     'controlling_series': self.get_relations('Controlling'),
                     'related_series': self.get_relations('Related'),
+                    'availability': self.get_value('Visibility & availability indicator'),
                     'retrieved': arrow.now(tz='Australia/Sydney').isoformat()
                 }
                 series.update(self.get_number_described())
