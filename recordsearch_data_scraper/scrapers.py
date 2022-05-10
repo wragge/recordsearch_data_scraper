@@ -835,8 +835,8 @@ class RSItemSearch(RSSearch):
             items = self.process_list(details)
         # There's a single item
         elif soup.find(id=re.compile('ContentPlaceHolderSNR_ucItemDetails_phDetailsView')) is not None:
-            details = soup.find('div', 'detailsTable')
-            items = [self.entity(details=details).data]
+            details = soup.find('div', 'mainDetailsTable')
+            items = [self.entity(details=details, cache=False).data]
         # No items?
         else:
             raise Exception('No results found on page!')
@@ -1055,8 +1055,8 @@ class RSSeriesSearch(RSSearch):
             series = self.process_list(details)
         # There's a single item
         elif soup.find(id=re.compile('ContentPlaceHolderSNR_ucSeriesDetails_phDetailsView')) is not None:
-            details = soup.find('div', 'detailsTable')
-            series = [self.entity(details=details).data]
+            details = soup.find('div', 'mainDetailsTable')
+            series = [self.entity(details=details, cache=False).data]
         # No items?
         else:
             raise Exception('No results found on page!')
@@ -1187,8 +1187,8 @@ class RSAgencySearch(RSSearch):
             agencies = self.process_list(results)
         # There's a single item
         elif soup.find(id=re.compile('ucAgencyDetails_phDetailsView')) is not None:
-            details = soup.find('div', 'detailsTable')
-            agencies = [self.entity(details=details).data]
+            details = soup.find('div', 'mainDetailsTable')
+            agencies = [self.entity(details=details, cache=False).data]
         # No items?
         else:
             raise Exception('No results found on page!')
