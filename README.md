@@ -25,7 +25,7 @@ See the [documentation](https://wragge.github.io/recordsearch_data_scraper/) for
 
 ## Install
 
-`pip install git+https://github.com/wragge/recordsearch_data_scraper.git`
+`pip install recordsearch-data-scraper`
 
 ## How to use
 
