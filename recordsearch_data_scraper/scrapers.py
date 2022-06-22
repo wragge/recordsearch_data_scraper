@@ -1055,7 +1055,11 @@ class RSSeriesSearch(RSSearch):
             series = self.process_list(details)
         # There's a single item
         elif soup.find(id=re.compile('ContentPlaceHolderSNR_ucSeriesDetails_phDetailsView')) is not None:
-            details = soup.find('div', 'mainDetailsTable')
+            # If there's only one item & you have a 'sort' param, RS returns an empty details page
+            # So we'll remove any sort parameter & resubmit the url
+            details_url = re.sub(r'(\?|&)sort=\d', '', self.browser.url)
+            self.browser.open(details_url)
+            details = self.browser.page.find('div', 'mainDetailsTable')
             series = [self.entity(details=details, cache=False).data]
         # No items?
         else:
@@ -1187,7 +1191,11 @@ class RSAgencySearch(RSSearch):
             agencies = self.process_list(results)
         # There's a single item
         elif soup.find(id=re.compile('ucAgencyDetails_phDetailsView')) is not None:
-            details = soup.find('div', 'mainDetailsTable')
+            # If there's only one item & you have a 'sort' param, RS returns an empty details page
+            # So we'll remove any sort parameter & resubmit the url
+            details_url = re.sub(r'(\?|&)sort=\d', '', self.browser.url)
+            self.browser.open(details_url)
+            details = self.browser.page.find('div', 'mainDetailsTable')
             agencies = [self.entity(details=details, cache=False).data]
         # No items?
         else:
