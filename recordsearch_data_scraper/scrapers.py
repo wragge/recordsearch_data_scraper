@@ -1108,6 +1108,7 @@ class RSAgency(RSEntity):
                 agency = {
                     'identifier': self.identifier,
                     'title': self.get_value('Title'),
+                    'institution_title': self.get_value('Institution title'),
                     'agency_status': self.get_value('Agency status'),
                     'location': self.get_value('Location'),
                     'functions': self.get_relations('Function'),
