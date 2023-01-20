@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="A set of classes for scraping data about items, series, and agencies from the National Archives of Australia’s online database, RecordSearch.">
+
+<title>recordsearch_data_scraper - Scrapers</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="recordsearch_data_scraper - Scrapers">
+<meta property="og:description" content="A set of classes for scraping data about items, series, and agencies from the National Archives of Australia's online database, RecordSearch.">
+<meta property="og:site-name" content="recordsearch_data_scraper">
+<meta name="twitter:title" content="recordsearch_data_scraper - Scrapers">
+<meta name="twitter:description" content="A set of classes for scraping data about items, series, and agencies from the National Archives of Australia's online database, RecordSearch.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">recordsearch_data_scraper</span>
+    </a>
+  </div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Scrapers</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">RecordSearch Data Scraper</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scrapers.html" class="sidebar-item-text sidebar-link active">Scrapers</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#base" id="toc-base" class="nav-link active" data-scroll-target="#base">Base</a>
+  <ul class="collapse">
+  <li><a href="#make_browser" id="toc-make_browser" class="nav-link" data-scroll-target="#make_browser">make_browser</a></li>
+  <li><a href="#make_session" id="toc-make_session" class="nav-link" data-scroll-target="#make_session">make_session</a></li>
+  <li><a href="#rssearch" id="toc-rssearch" class="nav-link" data-scroll-target="#rssearch">RSSearch</a></li>
+  <li><a href="#rsentity" id="toc-rsentity" class="nav-link" data-scroll-target="#rsentity">RSEntity</a></li>
+  <li><a href="#rsbase" id="toc-rsbase" class="nav-link" data-scroll-target="#rsbase">RSBase</a></li>
+  </ul></li>
+  <li><a href="#items" id="toc-items" class="nav-link" data-scroll-target="#items">Items</a>
+  <ul class="collapse">
+  <li><a href="#rsitem" id="toc-rsitem" class="nav-link" data-scroll-target="#rsitem">RSItem</a></li>
+  <li><a href="#rsitem.refresh_cache" id="toc-rsitem.refresh_cache" class="nav-link" data-scroll-target="#rsitem.refresh_cache">RSItem.refresh_cache</a></li>
+  <li><a href="#rsitemsearch" id="toc-rsitemsearch" class="nav-link" data-scroll-target="#rsitemsearch">RSItemSearch</a></li>
+  <li><a href="#item-search-parameters" id="toc-item-search-parameters" class="nav-link" data-scroll-target="#item-search-parameters">Item search parameters</a></li>
+  <li><a href="#keyword-options" id="toc-keyword-options" class="nav-link" data-scroll-target="#keyword-options">Keyword options</a></li>
+  <li><a href="#format-options" id="toc-format-options" class="nav-link" data-scroll-target="#format-options">Format options</a></li>
+  <li><a href="#location-options" id="toc-location-options" class="nav-link" data-scroll-target="#location-options">Location options</a></li>
+  <li><a href="#access-status-options" id="toc-access-status-options" class="nav-link" data-scroll-target="#access-status-options">Access status options</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  <li><a href="#rsitemsearch.get_results" id="toc-rsitemsearch.get_results" class="nav-link" data-scroll-target="#rsitemsearch.get_results">RSItemSearch.get_results</a></li>
+  <li><a href="#rsitemsearch.refresh_cache" id="toc-rsitemsearch.refresh_cache" class="nav-link" data-scroll-target="#rsitemsearch.refresh_cache">RSItemSearch.refresh_cache</a></li>
+  </ul></li>
+  <li><a href="#series" id="toc-series" class="nav-link" data-scroll-target="#series">Series</a>
+  <ul class="collapse">
+  <li><a href="#rsseries" id="toc-rsseries" class="nav-link" data-scroll-target="#rsseries">RSSeries</a></li>
+  <li><a href="#rsseries.refresh_cache" id="toc-rsseries.refresh_cache" class="nav-link" data-scroll-target="#rsseries.refresh_cache">RSSeries.refresh_cache</a></li>
+  <li><a href="#rsseriessearch" id="toc-rsseriessearch" class="nav-link" data-scroll-target="#rsseriessearch">RSSeriesSearch</a></li>
+  <li><a href="#series-search-parameters" id="toc-series-search-parameters" class="nav-link" data-scroll-target="#series-search-parameters">Series search parameters</a></li>
+  <li><a href="#series-keyword-options" id="toc-series-keyword-options" class="nav-link" data-scroll-target="#series-keyword-options">Series keyword options</a></li>
+  <li><a href="#series-location-options" id="toc-series-location-options" class="nav-link" data-scroll-target="#series-location-options">Series location options</a></li>
+  <li><a href="#series-format-options" id="toc-series-format-options" class="nav-link" data-scroll-target="#series-format-options">Series format options</a></li>
+  <li><a href="#examples-1" id="toc-examples-1" class="nav-link" data-scroll-target="#examples-1">Examples</a></li>
+  <li><a href="#rsseriessearch.get_results" id="toc-rsseriessearch.get_results" class="nav-link" data-scroll-target="#rsseriessearch.get_results">RSSeriesSearch.get_results</a></li>
+  <li><a href="#rsseriessearch.refresh_cache" id="toc-rsseriessearch.refresh_cache" class="nav-link" data-scroll-target="#rsseriessearch.refresh_cache">RSSeriesSearch.refresh_cache</a></li>
+  </ul></li>
+  <li><a href="#agencies" id="toc-agencies" class="nav-link" data-scroll-target="#agencies">Agencies</a>
+  <ul class="collapse">
+  <li><a href="#rsagency" id="toc-rsagency" class="nav-link" data-scroll-target="#rsagency">RSAgency</a></li>
+  <li><a href="#examples-2" id="toc-examples-2" class="nav-link" data-scroll-target="#examples-2">Examples</a></li>
+  <li><a href="#rsagency.refresh_cache" id="toc-rsagency.refresh_cache" class="nav-link" data-scroll-target="#rsagency.refresh_cache">RSAgency.refresh_cache</a></li>
+  <li><a href="#rsagencysearch" id="toc-rsagencysearch" class="nav-link" data-scroll-target="#rsagencysearch">RSAgencySearch</a></li>
+  <li><a href="#agency-search-parameters" id="toc-agency-search-parameters" class="nav-link" data-scroll-target="#agency-search-parameters">Agency search parameters</a></li>
+  <li><a href="#agency-keyword-options" id="toc-agency-keyword-options" class="nav-link" data-scroll-target="#agency-keyword-options">Agency keyword options</a></li>
+  <li><a href="#agency-function-note" id="toc-agency-function-note" class="nav-link" data-scroll-target="#agency-function-note">Agency function note</a></li>
+  <li><a href="#agency-location-options" id="toc-agency-location-options" class="nav-link" data-scroll-target="#agency-location-options">Agency location options</a></li>
+  <li><a href="#agency-status-options" id="toc-agency-status-options" class="nav-link" data-scroll-target="#agency-status-options">Agency status options</a></li>
+  <li><a href="#examples-3" id="toc-examples-3" class="nav-link" data-scroll-target="#examples-3">Examples</a></li>
+  <li><a href="#rsagencysearch.get_results" id="toc-rsagencysearch.get_results" class="nav-link" data-scroll-target="#rsagencysearch.get_results">RSAgencySearch.get_results</a></li>
+  <li><a href="#rsseriessearch.refresh_cache-1" id="toc-rsseriessearch.refresh_cache-1" class="nav-link" data-scroll-target="#rsseriessearch.refresh_cache-1">RSSeriesSearch.refresh_cache</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/wragge/recordsearch_data_scraper/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Scrapers</h1>
+</div>
+
+<div>
+  <div class="description">
+    A set of classes for scraping data about items, series, and agencies from the National Archives of Australia’s online database, RecordSearch.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<p>The main entities described within RecordSearch are <strong>Items</strong>, <strong>Series</strong>, and <strong>Agencies</strong>. Put simply, items are contained within series, and series are created and controlled by agencies. But the <a href="https://www.naa.gov.au/help-your-research/getting-started/commonwealth-record-series-crs-system">Series System</a>, on which RecordSearch is based, allows a much more complex range of relationships between entities to be documented.</p>
+<section id="base" class="level2">
+<h2 class="anchored" data-anchor-id="base">Base</h2>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L31" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="make_browser" class="level3">
+<h3 class="anchored" data-anchor-id="make_browser">make_browser</h3>
+<blockquote class="blockquote">
+<pre><code> make_browser ()</code></pre>
+</blockquote>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L24" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="make_session" class="level3">
+<h3 class="anchored" data-anchor-id="make_session">make_session</h3>
+<blockquote class="blockquote">
+<pre><code> make_session ()</code></pre>
+</blockquote>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L493" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rssearch" class="level3">
+<h3 class="anchored" data-anchor-id="rssearch">RSSearch</h3>
+<blockquote class="blockquote">
+<pre><code> RSSearch (results_per_page=20, sort=None, record_detail='brief',
+           **kwargs)</code></pre>
+</blockquote>
+<p>Base class for an advanced search in RecordSearch. There are different search forms for the different RecordSearch entities, so don’t use this directly. Use one of the subclasses.</p>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L369" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rsentity" class="level3">
+<h3 class="anchored" data-anchor-id="rsentity">RSEntity</h3>
+<blockquote class="blockquote">
+<pre><code> RSEntity (identifier=None, cache=True, **kwargs)</code></pre>
+</blockquote>
+<p>Base class for individual RecordSearch entities – item, series, or agency.</p>
+<p>Not for direct use – use the appropriate subclass instead.</p>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L314" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rsbase" class="level3">
+<h3 class="anchored" data-anchor-id="rsbase">RSBase</h3>
+<blockquote class="blockquote">
+<pre><code> RSBase ()</code></pre>
+</blockquote>
+<p>Base class with utility methods.</p>
+</section>
+</section>
+<section id="items" class="level2">
+<h2 class="anchored" data-anchor-id="items">Items</h2>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L656" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="rsitem" class="level3">
+<h3 class="anchored" data-anchor-id="rsitem">RSItem</h3>
+<blockquote class="blockquote">
+<pre><code> RSItem (identifier=None, cache=True, details=None)</code></pre>
+</blockquote>
+<p>Class used for extracting data about an individual item (usually a file, but can be a volume, box, photograph etc) from RecordSearch.</p>
+<p>You need to supply one of the following parameters:</p>
+<ul>
+<li><code>identifier</code> – the Item ID (aka barcode)</li>
+<li><code>details</code> – the BeautifulSoup HTML element containing the item details</li>
+</ul>
+<p>You’d only use <code>details</code> if you already have a RecordSearch page and want to extract item data from it. (There’s an example of this in the <a href="https://wragge.github.io/recordsearch_data_scraper/scrapers.html#rsitemsearch"><code>RSItemSearch</code></a> class.)</p>
+<p>The item data is obtained by accessing the item’s <code>.data</code> attribute.</p>
+<p>Items in RecordSearch are usually paper files, but can be other things like volumes, boxes, videos, or digital objects. Items have a unique identifier described as the ‘Item ID’, this was previously referred to as the item’s ‘barcode’. The <a href="https://wragge.github.io/recordsearch_data_scraper/scrapers.html#rsitem"><code>RSItem</code></a> class extracts information about an individual item from RecordSearch, using it’s Item ID.</p>
+<p>Here are the fields returned:</p>
+<ul>
+<li><code>title</code> (string)</li>
+<li><code>identifier</code> (string)</li>
+<li><code>series</code> (string)</li>
+<li><code>control_symbol</code> (string)</li>
+<li><code>digitised_status</code> (boolean) – <code>True</code> if the item has been digitised</li>
+<li><code>digitised_pages</code> (integer) – number of pages in the digitised file</li>
+<li><code>access_status</code> (string) – one of ‘Open’, ‘OWE’, ‘Closed’, ‘NYE’ (see <a href="#Access-status-options">access status options</a>)</li>
+<li><code>access_decision_reasons</code> (list) – a list of reasons why material has been been witheld from public access (if CLOSED, or OWE)</li>
+<li><code>location</code> (string)</li>
+<li><code>contents_date_str</code> (ISO formatted date)</li>
+<li><code>contents_start_date</code> (ISO formatted date)</li>
+<li><code>contents_end_date</code> (ISO formatted date)</li>
+<li><code>access_decision_date_str</code> (ISO formatted date)</li>
+<li><code>access_decision_date</code> (ISO formatted date)</li>
+<li><code>retrieved</code> (ISO formatted datetime) - when this record was scraped</li>
+</ul>
+<p>Note that <code>digitised_pages</code> is not part of the metadata presented in RecordSearch’s item description. This value is obtained from the digitised file viewer using <code>get_digitised_pages()</code>.</p>
+<p>To retrieve information about an item, just give <code>RSItem()</code> the Item ID (also known as the barcode).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get an item</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> RSItem(<span class="st">'3445411'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can then access the item data using the <code>.data</code> attribute.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>display(item.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'title': 'WRAGGE Clement Lionel Egerton : SERN 647 : POB Cheadle England : POE Enoggera QLD : NOK  (Father) WRAGGE Clement Lindley',
+ 'identifier': '3445411',
+ 'series': 'B2455',
+ 'control_symbol': 'WRAGGE C L E',
+ 'note': '',
+ 'digitised_status': True,
+ 'digitised_pages': 47,
+ 'access_status': 'Open',
+ 'access_decision_reasons': [],
+ 'location': 'Canberra',
+ 'retrieved': '2023-01-20T10:47:44.524487+11:00',
+ 'contents_date_str': '1914 - 1920',
+ 'contents_start_date': '1914',
+ 'contents_end_date': '1920',
+ 'access_decision_date_str': '12 Apr 2001',
+ 'access_decision_date': '2001-04-12'}</code></pre>
+</div>
+</div>
+<p>Use <code>item.data[FIELD NAME]</code> to access individual fields. The <code>series</code> value of this item should be ‘B2455’.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> item.data[<span class="st">'series'</span>] <span class="op">==</span> <span class="st">'B2455'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As an added bonus, the string representation of the item is also its brief citation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">str</span>(item)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'NAA: B2455, WRAGGE C L E'</code></pre>
+</div>
+</div>
+<p>Not all items have notes, but if they do, they should be included.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This item has a note</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> RSItem(<span class="dv">324717</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'note'</span> <span class="kw">in</span> item.data</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the note</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>item.data[<span class="st">'note'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'Summary heading Negative of photograph of Poon Gooey available Descriptive note Photograph of Poon Gooey used in National Archives of Australia exhibition – Alien Edwardians – Chinese Immigrants and Commonwealth Government. Duplicating negative of photograph available – please see National Archives staff [ B6416 b/c #10551458]'</code></pre>
+</div>
+</div>
+<p>The extracted data is saved into a simple key-value cache to speed up repeat requests. If you want to scrape a fresh version, use <code>.refresh_cache()</code>.</p>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L386" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rsitem.refresh_cache" class="level3">
+<h3 class="anchored" data-anchor-id="rsitem.refresh_cache">RSItem.refresh_cache</h3>
+<blockquote class="blockquote">
+<pre><code> RSItem.refresh_cache ()</code></pre>
+</blockquote>
+<p>Delete data for this entity from the cache, then extract a fresh version from RecordSearch.</p>
+<p>We can check that this has worked by comparing the value of <code>retrieved</code>, which is the date/time the data was scraped.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>old_retrieved_date <span class="op">=</span> item.data[<span class="st">'retrieved'</span>]</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>item.refresh_cache()</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>new_retrieved_date <span class="op">=</span> item.data[<span class="st">'retrieved'</span>]</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> old_retrieved_date <span class="op">!=</span> new_retrieved_date</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L760" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rsitemsearch" class="level3">
+<h3 class="anchored" data-anchor-id="rsitemsearch">RSItemSearch</h3>
+<blockquote class="blockquote">
+<pre><code> RSItemSearch (results_per_page=20, sort=9, record_detail='brief',
+               **kwargs)</code></pre>
+</blockquote>
+<p>Search for items in RecordSearch.</p>
+<p>Supply any of the item search parameters as kwargs to initialise the search.</p>
+<p>Optional parameters:</p>
+<ul>
+<li><code>results_per_page</code> (default: 20)</li>
+<li><code>sort</code> (default: 1 – order by id)</li>
+<li><code>page</code> – to retrieve a specific page of results</li>
+<li><code>record_detail</code> – amount of detail to include, options are:
+<ul>
+<li>‘brief’ (default) – just the info in the search results</li>
+<li><code>digitised</code> – add the number of pages if the file is digitised (slower)</li>
+<li>‘full’ – get the full individual record for each result (slowest)</li>
+</ul></li>
+</ul>
+<p>To access a page of results, use the <code>.get_results()</code> method. This method increments the results page, so you can call it in a loop to retrieve the complete result set.</p>
+<p>Useful attributes:</p>
+<ul>
+<li><code>.total_results</code> – the total number of results in the results set</li>
+<li><code>.total_pages</code> – the total number of result pages</li>
+<li><code>.kwargs</code> – a dict containing the supplied search parameters</li>
+<li><code>.params</code> – a dict containing the values of the optional parameters</li>
+</ul>
+</section>
+<section id="item-search-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="item-search-parameters">Item search parameters</h3>
+<p>These are the parameters you can supply as keyword arguments to <a href="https://wragge.github.io/recordsearch_data_scraper/scrapers.html#rsitemsearch"><code>RSItemSearch</code></a>.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Input type</th>
+<th style="text-align: left;">Values</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>kw</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Keywords or phrase to search for</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>kw_options</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">How to combine the keywords – see <a href="#Keyword-options">keyword options</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>kw_exclude</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Keywords or phrase to exclude</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>kw_exclude_options</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">How to combine the keywords – see <a href="#Keyword-options">keyword options</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>search_notes</strong></td>
+<td style="text-align: left;">Checkbox</td>
+<td style="text-align: left;">Set to <code>True</code> to search notes as well as titles</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>series</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Limit to items from this series – eg ‘A1’</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>series_exclude</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Exclude items from this series</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>control</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Limit to items with this control symbol (use * for wildcards) – eg ’1947/2*’</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>control_exclude</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Exclude items with this control symbol</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>item_id</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Get the item with this identifier (no wildcards allowed)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>date_from</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Include items with content after this date (year only) – eg ‘1925’</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>date_to</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Include items with content before this date (year only) – eg ‘1945’</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>formats</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Limit to items in this format – see <a href="#Format-options">format options</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>formats_exclude</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Exclude items in this format – see <a href="#Format-options">format options</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>locations</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Limit to items held in this location – see list of <a href="#Location-options">locations</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>locations_exclude</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Exclude items held in this location – see list of <a href="#Location-options">locations</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>access</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Limit to items with this access status – see <a href="#Access-status-options">access status options</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>access_exclude</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Exclude items with this access status – see <a href="#Access-status-options">access status options</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>digital</strong></td>
+<td style="text-align: left;">Checkbox</td>
+<td style="text-align: left;">Limit to digitised items – set to <code>True</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="keyword-options" class="level3">
+<h3 class="anchored" data-anchor-id="keyword-options">Keyword options</h3>
+<p>Use one of the following values to specify how keywords or phrases should be treated using the <code>kw_options</code> parameter. The default is ‘ALL’.</p>
+<ul>
+<li><strong>‘ALL’</strong> (default) – must include all keywords</li>
+<li><strong>‘ANY’</strong> – must include at least one of the keywords</li>
+<li><strong>‘EXACT’</strong> – treat the keywords as a phrase</li>
+</ul>
+</section>
+<section id="format-options" class="level3">
+<h3 class="anchored" data-anchor-id="format-options">Format options</h3>
+<p>Use one of the following values with the <code>formats</code> and <code>formats_exclude</code> parameters to limit your results to items in that format. The default is to include all formats.</p>
+<ul>
+<li><strong>‘Paper files and documents’</strong></li>
+<li><strong>‘Index cards’</strong></li>
+<li><strong>‘Bound volumes’</strong></li>
+<li><strong>‘Cartographic records’</strong></li>
+<li><strong>‘Photographs’</strong></li>
+<li><strong>‘Microforms’</strong></li>
+<li><strong>‘Audio-visual records’</strong></li>
+<li><strong>‘Audio records’</strong></li>
+<li><strong>‘Electronic records’</strong></li>
+<li><strong>‘3-dimensional records’</strong></li>
+<li><strong>‘Scientific specimens’</strong></li>
+<li><strong>‘Textiles’</strong></li>
+</ul>
+</section>
+<section id="location-options" class="level3">
+<h3 class="anchored" data-anchor-id="location-options">Location options</h3>
+<p>Use one of the following values with the <code>locations</code> and <code>locations_exclude</code> parameters to limit your results to items held in that location. The default is to include all locations.</p>
+<ul>
+<li><strong>‘NAT,ACT’</strong> – National office (ACT)</li>
+<li><strong>‘AWM’</strong> – Australian War Memorial</li>
+<li><strong>‘NSW’</strong></li>
+<li><strong>‘NT’</strong></li>
+<li><strong>‘QLD’</strong></li>
+<li><strong>‘SA’</strong></li>
+<li><strong>‘TAS’</strong></li>
+<li><strong>‘VIC’</strong></li>
+<li><strong>‘WA’</strong></li>
+</ul>
+</section>
+<section id="access-status-options" class="level3">
+<h3 class="anchored" data-anchor-id="access-status-options">Access status options</h3>
+<p>Use one of the following values with the <code>access</code> and <code>access_exclude</code> parameters to limit your results to items with this access examination status. The default is to include all.</p>
+<ul>
+<li><strong>‘OPEN’</strong> – available for public access</li>
+<li><strong>‘OWE’</strong> – open with exceptions (eg it might have pages withheld or redactions applied)</li>
+<li><strong>‘CLOSED’</strong> – withheld completely from public access</li>
+<li><strong>‘NYE’</strong> – not yet examined (no access decision has been made)</li>
+</ul>
+</section>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<p>Here’s a basic keyword search for items.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>item_results <span class="op">=</span> RSItemSearch(kw<span class="op">=</span><span class="st">'wragge'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Initialising the <a href="https://wragge.github.io/recordsearch_data_scraper/scrapers.html#rsitemsearch"><code>RSItemSearch</code></a> class sets up the search and retrieves some information about the results set. For example, to see the total number of results, we just access the <code>.total_results</code> attribute.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>item_results.total_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>212</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L516" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rsitemsearch.get_results" class="level3">
+<h3 class="anchored" data-anchor-id="rsitemsearch.get_results">RSItemSearch.get_results</h3>
+<blockquote class="blockquote">
+<pre><code> RSItemSearch.get_results (page=None)</code></pre>
+</blockquote>
+<p>Return a list of results from a search results page.</p>
+<p>The <code>page</code> value is incremented with each request, so you can call this method in a loop to retrieve the complete results set. When you reach then of the results, this method will return an empty list.</p>
+<p>Optional parameter:</p>
+<ul>
+<li><code>page</code> – request a specific page from the results set</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>item_results.get_results()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'total_results': 212,
+ 'page': 1,
+ 'number_of_results': 20,
+ 'results': [{'series': 'A2479',
+   'control_symbol': '17/1306',
+   'title': 'The Wragge Estate. Property for sale.',
+   'identifier': '149309',
+   'access_status': 'Open',
+   'location': 'Canberra',
+   'contents_date_str': '1917 - 1917',
+   'contents_start_date': '1917',
+   'contents_end_date': '1917',
+   'digitised_status': True,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'A2487',
+   'control_symbol': '1919/8962',
+   'title': '[Application for free passage - Rupert Lindley Wragge]',
+   'identifier': '156686',
+   'access_status': 'Open',
+   'location': 'Canberra',
+   'contents_date_str': '1918 - 1919',
+   'contents_start_date': '1918',
+   'contents_end_date': '1919',
+   'digitised_status': True,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'B1535',
+   'control_symbol': '736/23/341',
+   'title': '[Applications for Commissions: K S Wragge, R A Fry, V J T Sharpe, J G Cameron]',
+   'identifier': '377317',
+   'access_status': 'Open',
+   'location': 'Melbourne',
+   'contents_date_str': '1939 - 1939',
+   'contents_start_date': '1939',
+   'contents_end_date': '1939',
+   'digitised_status': False,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'AWM54',
+   'control_symbol': '1010/4/150',
+   'title': '[War Crimes and Trials - Affidavits and Sworn Statements:] Statements by No number RW Woodhouse; VX39749 Pte RC Woodman; 23663 Able Seaman CD Woodman; NX58655 WO/1 WJ Woodward; VX37644 Pte CA Woodward; QX15620 Pte HA Woodward; TX3959 Pte BJ Woodward; No number Capt EJ Wooldridge; No number AN Wooton; NX501953 Spr GA Worland; QX259 Capt NA Worthington; QX14395 Gnr RL Wragge; NX12233 Lt-Col JW Wright; NX70664 Capt RG Wright; VX35065 L/Bdr JH Wright; SX8474 Pte RR Wright; NX56234 Cpl AG Wright; NX27630 L/Sgt L Wrightson; NX69819 Dvr RP Wyatt; WX12593 Pte RW Wyllie',
+   'identifier': '479150',
+   'access_status': 'Open',
+   'location': 'Australian War Memorial',
+   'contents_date_str': '1945 - 1947',
+   'contents_start_date': '1945',
+   'contents_end_date': '1947',
+   'digitised_status': False,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'A1716',
+   'control_symbol': '240',
+   'title': '"Wragge" [NOTE: Registration and exhibit]',
+   'identifier': '659953',
+   'access_status': 'Open',
+   'location': 'Canberra',
+   'contents_date_str': '1902 - 1902',
+   'contents_start_date': '1902',
+   'contents_end_date': '1902',
+   'digitised_status': True,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'A1716',
+   'control_symbol': '241',
+   'title': '"Wragge" [NOTE: Registration and exhibit]',
+   'identifier': '659955',
+   'access_status': 'Open',
+   'location': 'Canberra',
+   'contents_date_str': '1902 - 1902',
+   'contents_start_date': '1902',
+   'contents_end_date': '1902',
+   'digitised_status': True,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'A1716',
+   'control_symbol': '243',
+   'title': '"Wragge" [NOTE: Registration and exhibit]',
+   'identifier': '659958',
+   'access_status': 'Open',
+   'location': 'Canberra',
+   'contents_date_str': '1902 - 1902',
+   'contents_start_date': '1902',
+   'contents_end_date': '1902',
+   'digitised_status': True,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'AWM93',
+   'control_symbol': '22/2/83',
+   'title': '[Australian War Memorial registry files, first series] Staff - Personal files: Mr W G Wragge',
+   'identifier': '1015137',
+   'access_status': 'Not yet examined',
+   'location': 'Australian War Memorial',
+   'contents_date_str': '1924 - 1925',
+   'contents_start_date': '1924',
+   'contents_end_date': '1925',
+   'digitised_status': False,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'B503',
+   'control_symbol': 'Q2018',
+   'title': 'Wragge, Raymond Lindley QX14395 [Prisoners of War Trust Fund application]',
+   'identifier': '1031372',
+   'access_status': 'Not yet examined',
+   'location': 'Melbourne',
+   'contents_date_str': '1955 - 1977',
+   'contents_start_date': '1955',
+   'contents_end_date': '1977',
+   'digitised_status': False,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'B503',
+   'control_symbol': 'V3600',
+   'title': 'Wragge, Leslie James VX25877 [Prisoners of War Trust Fund application]',
+   'identifier': '1033806',
+   'access_status': 'Not yet examined',
+   'location': 'Melbourne',
+   'contents_date_str': '1955 - 1977',
+   'contents_start_date': '1955',
+   'contents_end_date': '1977',
+   'digitised_status': False,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'SP459/1',
+   'control_symbol': '429/8/5434',
+   'title': 'Injuries - VX112202 Captain WRAGGE, H S [Box 64]',
+   'identifier': '1365125',
+   'access_status': 'Not yet examined',
+   'location': 'Sydney',
+   'contents_date_str': '1947 - 1947',
+   'contents_start_date': '1947',
+   'contents_end_date': '1947',
+   'digitised_status': False,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'A2478',
+   'control_symbol': 'TRZECIAK H',
+   'title': 'TRZECIAK Helmut born 17 February 1920; frida (nee Wragge) born 13 November 1921; Monika born 9 January 1944; Rosemarie born 30 June 1945; Hartmut born 19 January 1952 - German - travelled per ship SKAUBRYN departing in 1954',
+   'identifier': '1438793',
+   'access_status': 'Open',
+   'location': 'Canberra',
+   'contents_date_str': '1954 - 1954',
+   'contents_start_date': '1954',
+   'contents_end_date': '1954',
+   'digitised_status': False,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'A9951',
+   'control_symbol': '71',
+   'title': 'Nominal Roll - Original 3501 - 3542. Wragge, Keith Clement - Zusman, Solomon',
+   'identifier': '1751559',
+   'access_status': 'Open',
+   'location': 'Canberra',
+   'contents_date_str': '1949 - 1949',
+   'contents_start_date': '1949',
+   'contents_end_date': '1949',
+   'digitised_status': True,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'A9951',
+   'control_symbol': '72',
+   'title': 'Nominal Roll - Duplicate 3501 - 3542. Wragge, Keith Clement - Zusman, Solomon',
+   'identifier': '1751560',
+   'access_status': 'Open',
+   'location': 'Canberra',
+   'contents_date_str': '1949 - 1949',
+   'contents_start_date': '1949',
+   'contents_end_date': '1949',
+   'digitised_status': True,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'J1193',
+   'control_symbol': 'QX14395',
+   'title': 'Members folders, Second World War Queensland army personnel - Wragge Raymond Lindley',
+   'identifier': '1908313',
+   'access_status': 'Open',
+   'location': 'Brisbane',
+   'contents_date_str': '1940 - 1949',
+   'contents_start_date': '1940',
+   'contents_end_date': '1949',
+   'digitised_status': False,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'A10074',
+   'control_symbol': '1926/13',
+   'title': 'WRAGGE Thomas William Eric versus COLLINS James; COLLINS Edward',
+   'identifier': '3141698',
+   'access_status': 'Open',
+   'location': 'Canberra',
+   'contents_date_str': '1926 - 1926',
+   'contents_start_date': '1926',
+   'contents_end_date': '1926',
+   'digitised_status': False,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'B2455',
+   'control_symbol': 'WRAGGE A C P',
+   'title': 'Wragge Alfred Charles Peter : SERN Depot : POB Rockhampton QLD : POE Brisbane QLD : NOK W Wragge F E',
+   'identifier': '3445406',
+   'access_status': 'Open',
+   'location': 'Canberra',
+   'contents_date_str': 'circa1914 - circa1920',
+   'contents_start_date': None,
+   'contents_end_date': None,
+   'digitised_status': True,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'B2455',
+   'control_symbol': 'WRAGGE C L E',
+   'title': 'WRAGGE Clement Lionel Egerton : SERN 647 : POB Cheadle England : POE Enoggera QLD : NOK  (Father) WRAGGE Clement Lindley',
+   'identifier': '3445411',
+   'access_status': 'Open',
+   'location': 'Canberra',
+   'contents_date_str': 'circa1914 - circa1920',
+   'contents_start_date': None,
+   'contents_end_date': None,
+   'digitised_status': True,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'B2455',
+   'control_symbol': 'WRAGGE G S',
+   'title': 'Wragge George Stanley : SERN 5580 : POB Croydon QLD : POE Cairns QLD : NOK Rivers Mrs Elizabeth',
+   'identifier': '3445416',
+   'access_status': 'Open',
+   'location': 'Canberra',
+   'contents_date_str': 'circa1914 - circa1920',
+   'contents_start_date': None,
+   'contents_end_date': None,
+   'digitised_status': True,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'},
+  {'series': 'B2455',
+   'control_symbol': 'WRAGGE J H',
+   'title': 'Wragge John Henry : SERN 6922 : POB Richmond VIC : POE Melbourne VIC : NOK W Wragge Lillian Maud',
+   'identifier': '3445422',
+   'access_status': 'Open',
+   'location': 'Canberra',
+   'contents_date_str': 'circa1914 - circa1920',
+   'contents_start_date': None,
+   'contents_end_date': None,
+   'digitised_status': True,
+   'retrieved': '2023-01-20T10:47:46.524370+11:00'}],
+ 'retrieved': '2023-01-20T10:47:46.530565+11:00'}</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>item_results.params</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'results_per_page': 20, 'sort': 9, 'record_detail': 'brief'}</code></pre>
+</div>
+</div>
+<p>This example returns a result set with a single item. In this case full data will be retrieved even if <code>record_detail</code> is set to ‘brief’.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>item_results <span class="op">=</span> RSItemSearch(series<span class="op">=</span><span class="st">'B2455'</span>, control<span class="op">=</span><span class="st">'HART G H*'</span>, record_detail<span class="op">=</span><span class="st">'brief'</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> item_results.total_results <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> item_results.get_results()</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Page layout is different for a single result, so check it's being parsed</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> data[<span class="st">'results'</span>][<span class="dv">0</span>][<span class="st">'digitised_status'</span>] <span class="op">==</span> <span class="va">True</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The number of digitised pages is included even though record_detail is set to brief</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> data[<span class="st">'results'</span>][<span class="dv">0</span>][<span class="st">'digitised_pages'</span>] <span class="op">&gt;</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Calling <code>.refresh_cache</code> will remove all of the data for this search from the cache, and set the results page back to 1.</p>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L565" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rsitemsearch.refresh_cache" class="level3">
+<h3 class="anchored" data-anchor-id="rsitemsearch.refresh_cache">RSItemSearch.refresh_cache</h3>
+<blockquote class="blockquote">
+<pre><code> RSItemSearch.refresh_cache ()</code></pre>
+</blockquote>
+<p>Delete data for this search from the cache, then retrieve a fresh version from RecordSearch.</p>
+</section>
+</section>
+<section id="series" class="level2">
+<h2 class="anchored" data-anchor-id="series">Series</h2>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L852" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="rsseries" class="level3">
+<h3 class="anchored" data-anchor-id="rsseries">RSSeries</h3>
+<blockquote class="blockquote">
+<pre><code> RSSeries (identifier=None, cache=True, details=None,
+           include_number_digitised=True, include_access_status=True)</code></pre>
+</blockquote>
+<p>Class used for extracting data about an individual series. You need to supply the following parameter:</p>
+<ul>
+<li><code>identifier</code> – the series number, eg ‘A1’, ‘B2455’</li>
+</ul>
+<p>Optional parameters:</p>
+<ul>
+<li><code>include_number_digitised</code> (boolean, default: True) – include the number of items in this series that have been digitised.</li>
+<li><code>include_access_status</code> (boolean, default: True) – include the number of items in this series in each of the access status categories.</li>
+</ul>
+<p>The series data is obtained by accessing the series’ <code>.data</code> attribute.</p>
+<p>A series is a group of records that have something in common, for example, they might have been part of the same filing system. Series can be related to other series, and to agencies. A single series can also be held across multiple locations. All this means the data can be quite complex.</p>
+<p>Not that as well as the standard RecordSearch metadata, the scraper can also extract some extra information about the series, such as the number of items digitised, and the access status of items in the series.</p>
+<p>Here are the fields returned:</p>
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>physical_format</code> (string)</li>
+<li><code>arrangement</code> (string)</li>
+<li><code>control_symbols</code> (string)</li>
+<li><code>locations</code> (list) – a list of locations, each with the fields:
+<ul>
+<li><code>quantity</code> (string)</li>
+<li><code>location</code> (string)</li>
+</ul></li>
+<li><code>recording_agencies</code> – a list of agencies, each with the fields:
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>date_str</code> (string)</li>
+<li><code>start_date</code> (ISO formatted date)</li>
+<li><code>end_date</code> (ISO formatted date)</li>
+</ul></li>
+<li><code>controlling_agencies</code> – a list of agencies, each with the fields:
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>date_str</code> (string)</li>
+<li><code>start_date</code> (ISO formatted date)</li>
+<li><code>end_date</code> (ISO formatted date)</li>
+</ul></li>
+<li><code>previous_series</code> – a list of series, each with the fields:
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>date_str</code> (string)</li>
+<li><code>start_date</code> (ISO formatted date)</li>
+<li><code>end_date</code> (ISO formatted date)</li>
+</ul></li>
+<li><code>subsequent_series</code> – a list of series, each with the fields:
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>date_str</code> (string)</li>
+<li><code>start_date</code> (ISO formatted date)</li>
+<li><code>end_date</code> (ISO formatted date)</li>
+</ul></li>
+<li><code>controlling_series</code> – a list of series, each with the fields:
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>date_str</code> (string)</li>
+<li><code>start_date</code> (ISO formatted date)</li>
+<li><code>end_date</code> (ISO formatted date)</li>
+</ul></li>
+<li><code>related_series</code> (list) – a list of series, each with the fields:
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>date_str</code> (string)</li>
+<li><code>start_date</code> (ISO formatted date)</li>
+<li><code>end_date</code> (ISO formatted date)</li>
+</ul></li>
+<li><code>items_described</code> (integer)</li>
+<li><code>items_described_note</code> (string)</li>
+<li><code>contents_date_str</code> (string)</li>
+<li><code>contents_start_date</code> (ISO formatted date)</li>
+<li><code>contents_end_date</code> (ISO formatted date)</li>
+<li><code>accumulation_date_str</code> (string)</li>
+<li><code>accumulation_start_date</code> (ISO formatted date)</li>
+<li><code>accumulation_end_date</code> (ISO formatted date)</li>
+<li><code>items_digitised</code> (integer) – the number of items in this series that have been digitised</li>
+<li><code>access_status_totals</code> (dict) – the number of items in each of the access status categories, OPEN, OWE, CLOSED, and NYE.</li>
+</ul>
+<p>To retrieve information about a series, just give <code>RSSeries()</code> the series number.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>series <span class="op">=</span> RSSeries(<span class="st">'A863'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can then access the series data using the <code>.data</code> attribute.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>display(series.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'identifier': 'A863',
+ 'title': 'Correspondence files, single number series relating to Civil Defence matters',
+ 'physical_format': 'PAPER FILES AND DOCUMENTS',
+ 'arrangement': 'Single number',
+ 'control_symbols': '1 - 468 (with gaps)',
+ 'locations': [{'quantity': 0.72, 'location': 'ACT'}],
+ 'note': 'Function and purpose This series consists of correspondence files covering a wide number of topics generally relating to Civil Defence matters. Included are reports from a wide range of sources, discussions on shelters, blood transfusion and medical services to mention a few. System of arrangement and control This series is controlled by a single number system. There are many gaps in the numbering. Finding aids All items in this series have been entered onto the National Archives of Australia item level database. Series history National Archives staff reviewed this series in 2001. Some records transferred into the National Archives of Australia’s custody were assessed as no longer justifying retention in the collection. These records were disposed of in accordance with records disposal authorities approved by the National Archives of Australia and by the Commonwealth agency responsible for the functions to which the records related. Disposal History A863/3 was withdrawn by the agency on 21 September 2016.',
+ 'recording_agencies': [{'date_str': '01 Jan 1944 - 31 Dec 1948',
+   'start_date': '1944-01-01',
+   'end_date': '1948-12-31',
+   'identifier': 'CA 31',
+   'title': 'Department of the Interior [II], Central Office'},
+  {'date_str': '01 Jan 1949 - 31 Dec 1961',
+   'start_date': '1949-01-01',
+   'end_date': '1961-12-31',
+   'identifier': 'CA 541',
+   'title': 'Directorate of Civil Defence'}],
+ 'controlling_agencies': [{'date_str': '1944 -',
+   'start_date': '1944',
+   'end_date': None,
+   'identifier': 'CA 46',
+   'title': 'Department of Defence [III], Central Office'}],
+ 'previous_series': [],
+ 'subsequent_series': [{'date_str': '31 Dec 1961',
+   'start_date': '1961-12-31',
+   'end_date': None,
+   'identifier': 'A5518',
+   'title': 'General correspondence files, annual single number series with "CD" or "NDO" prefix'}],
+ 'controlling_series': [],
+ 'related_series': [],
+ 'availability': None,
+ 'retrieved': '2023-01-20T10:47:48.175830+11:00',
+ 'items_described': 50,
+ 'items_described_note': "Click to see items listed on RecordSearch. Please contact the National Reference Service if you can't find the record you want as not all items from the series may be on RecordSearch.",
+ 'contents_date_str': '1944 - 1961',
+ 'contents_start_date': '1944',
+ 'contents_end_date': '1961',
+ 'accumulation_date_str': '1944 - 1961',
+ 'accumulation_start_date': '1944',
+ 'accumulation_end_date': '1961',
+ 'items_digitised': 0,
+ 'access_status_totals': {'OPEN': 50, 'OWE': 0, 'CLOSED': 0, 'NYE': 0}}</code></pre>
+</div>
+</div>
+<p>You can find out how many items within the series are closed to public access. In this case, it should be none.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> series.data[<span class="st">'access_status_totals'</span>][<span class="st">'CLOSED'</span>] <span class="op">==</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can access both the number of items described and digitised within each series. We’d expect the number described to be greater than or equal to the number digitised.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> series.data[<span class="st">'items_described'</span>] <span class="op">&gt;=</span> series.data[<span class="st">'items_digitised'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>By default, the scraper adds some extra information to the basic metadata – <code>items_digitised</code> and <code>access_status_totals</code>. To obtain these values, the scraper runs item searches – one to find digitised files, and another four to find all the access status values. This can slow things down considerably. If you want a quick response and don’t care about these values, you can set <code>include_number_digitised</code> and/or <code>include_access_status</code> to <code>False</code>.</p>
+<p>In the case below, the series data should <strong>not</strong> include a value for <code>items_digitised</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>series <span class="op">=</span> RSSeries(<span class="st">'A3'</span>, include_number_digitised<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">'items_digitised'</span> <span class="kw">not</span> <span class="kw">in</span> series.data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The extracted data is saved into a simple key-value cache to speed up repeat requests. If you want to scrape a fresh version, use <code>.refresh_cache()</code>.</p>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L927" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rsseries.refresh_cache" class="level3">
+<h3 class="anchored" data-anchor-id="rsseries.refresh_cache">RSSeries.refresh_cache</h3>
+<blockquote class="blockquote">
+<pre><code> RSSeries.refresh_cache ()</code></pre>
+</blockquote>
+<p>Delete data for this item from the cache, then extract a fresh version from RecordSearch.</p>
+<p>We can check that this has worked by comparing the value of <code>retrieved</code>, which is the date/time the data was scraped.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>old_retrieved_date <span class="op">=</span> series.data[<span class="st">'retrieved'</span>]</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>series.refresh_cache()</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>new_retrieved_date <span class="op">=</span> series.data[<span class="st">'retrieved'</span>]</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> old_retrieved_date <span class="op">!=</span> new_retrieved_date</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L981" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rsseriessearch" class="level3">
+<h3 class="anchored" data-anchor-id="rsseriessearch">RSSeriesSearch</h3>
+<blockquote class="blockquote">
+<pre><code> RSSeriesSearch (results_per_page=20, sort=1, record_detail='brief',
+                 **kwargs)</code></pre>
+</blockquote>
+<p>Search for series in RecordSearch.</p>
+<p>Supply any of the series search parameters as kwargs to initialise the search.</p>
+<p>Optional parameters:</p>
+<ul>
+<li><code>results_per_page</code> (default: 20)</li>
+<li><code>sort</code> (default: 1 – order by id)</li>
+<li><code>page</code> – to retrieve a specific page of results</li>
+<li><code>record_detail</code> – amount of detail to include, options are:
+<ul>
+<li>‘brief’ (default) – just the info in the search results</li>
+<li>‘full’ – get the full individual record for each result (slow)</li>
+</ul></li>
+</ul>
+<p>To access a page of results, use the <code>.get_results()</code> method. This method increments the results page, so you can call it in a loop to retrieve the complete result set.</p>
+<p>Useful attributes:</p>
+<ul>
+<li><code>.total_results</code> – the total number of results in the results set</li>
+<li><code>.total_pages</code> – the total number of result pages</li>
+<li><code>.kwargs</code> – a dict containing the supplied search parameters</li>
+<li><code>.params</code> – a dict containing the values of the optional parameters</li>
+</ul>
+</section>
+<section id="series-search-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="series-search-parameters">Series search parameters</h3>
+<p>These are the parameters you can supply as keyword arguments to <a href="https://wragge.github.io/recordsearch_data_scraper/scrapers.html#rsseriessearch"><code>RSSeriesSearch</code></a>.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Input type</th>
+<th style="text-align: left;">Values</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>kw</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Keywords or phrase to search for</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>kw_options</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">How to combine the keywords – see <a href="#Series-keyword-options">keyword options</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>kw_exclude</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Keywords or phrase to exclude</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>kw_exclude_options</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">How to combine the keywords – see <a href="#Series-keyword-options">keyword options</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>search_notes</strong></td>
+<td style="text-align: left;">Checkbox</td>
+<td style="text-align: left;">Set to <code>True</code> to search notes as well as titles</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>series_id</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Search for this series identifier</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>date_from</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Include series with content after this date (year only) – eg ‘1925’</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>date_to</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Include series with content before this date (year only) – eg ‘1945’</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>formats</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Limit to series with items in this format – see <a href="#Series-format-options">format options</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>formats_exclude</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Exclude series with items in this format – see <a href="#Series-format-options">format options</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>locations</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Limit to series held in this location – see list of <a href="#Series-location-options">locations</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>locations_exclude</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Exclude series held in this location – see list of <a href="#Series-location-options">locations</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>agency_recording</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Limit to series created by this agency or person</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>agency_controlling</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Limit to series controlled by this agency or person</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="series-keyword-options" class="level3">
+<h3 class="anchored" data-anchor-id="series-keyword-options">Series keyword options</h3>
+<p>Use one of the following values to specify how keywords or phrases should be treated using the <code>kw_options</code> parameter. The default is ‘ALL’.</p>
+<ul>
+<li><strong>‘ALL’</strong> (default) – must include all keywords</li>
+<li><strong>‘ANY’</strong> – must include at least one of the keywords</li>
+<li><strong>‘EXACT’</strong> – treat the keywords as a phrase</li>
+</ul>
+</section>
+<section id="series-location-options" class="level3">
+<h3 class="anchored" data-anchor-id="series-location-options">Series location options</h3>
+<p>Use one of the following values with the <code>locations</code> and <code>locations_exclude</code> parameters to limit your results to items held in that location. The default is to include all locations.</p>
+<ul>
+<li><strong>‘NAT,ACT’</strong> – National office (ACT)</li>
+<li><strong>‘AWM’</strong> – Australian War Memorial</li>
+<li><strong>‘NSW’</strong></li>
+<li><strong>‘NT’</strong></li>
+<li><strong>‘QLD’</strong></li>
+<li><strong>‘SA’</strong></li>
+<li><strong>‘TAS’</strong></li>
+<li><strong>‘VIC’</strong></li>
+<li><strong>‘WA’</strong></li>
+</ul>
+</section>
+<section id="series-format-options" class="level3">
+<h3 class="anchored" data-anchor-id="series-format-options">Series format options</h3>
+<p>Use one of the following values with the <code>formats</code> and <code>formats_exclude</code> parameters to limit your results to series containing that format. The default is to include all formats.</p>
+<ul>
+<li><strong>‘Paper files and documents’</strong></li>
+<li><strong>‘Index cards’</strong></li>
+<li><strong>‘Bound volumes’</strong></li>
+<li><strong>‘Cartographic records’</strong></li>
+<li><strong>‘Photographs’</strong></li>
+<li><strong>‘Microforms’</strong></li>
+<li><strong>‘Audio-visual records’</strong></li>
+<li><strong>‘Audio records’</strong></li>
+<li><strong>‘Electronic records’</strong></li>
+<li><strong>‘3-dimensional records’</strong></li>
+<li><strong>‘Scientific specimens’</strong></li>
+<li><strong>‘Textiles’</strong></li>
+</ul>
+</section>
+<section id="examples-1" class="level3">
+<h3 class="anchored" data-anchor-id="examples-1">Examples</h3>
+<p>Initialise a search.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>series_results <span class="op">=</span> RSSeriesSearch(agency_recording<span class="op">=</span><span class="st">'CA 1196'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can access the <code>.total_results</code> attribute to find out how many results there are.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>series_results.total_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>100</code></pre>
+</div>
+</div>
+<p>Naturally enough, the <code>.total_results</code> value should be an integer, as should <code>.total_pages</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(series_results.total_results, <span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(series_results.total_pages, <span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>series_results.params</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'results_per_page': 20, 'sort': 1, 'record_detail': 'brief'}</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L516" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rsseriessearch.get_results" class="level3">
+<h3 class="anchored" data-anchor-id="rsseriessearch.get_results">RSSeriesSearch.get_results</h3>
+<blockquote class="blockquote">
+<pre><code> RSSeriesSearch.get_results (page=None)</code></pre>
+</blockquote>
+<p>Return a list of results from a search results page.</p>
+<p>The <code>page</code> value is incremented with each request, so you can call this method in a loop to retrieve the complete results set. When you reach then of the results, this method will return an empty list.</p>
+<p>Optional parameter:</p>
+<ul>
+<li><code>page</code> – request a specific page from the results set</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>series_results.get_results(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'total_results': 100,
+ 'page': 2,
+ 'number_of_results': 20,
+ 'results': [{'identifier': 'A1644',
+   'title': "'[Master] subject index' [list of indexable headings] for correspondence files, annual single number series",
+   'locations': [],
+   'items_described': 0,
+   'accumulation_date_str': 'circa1967 - circa1973',
+   'accumulation_start_date': None,
+   'accumulation_end_date': None,
+   'contents_date_str': 'circa1967 - circa1973',
+   'contents_start_date': None,
+   'contents_end_date': None,
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1645',
+   'title': 'Subject index cards for correspondence files, annual single number series',
+   'locations': [{'location': 'ACT', 'quantity': '1.35m'}],
+   'items_described': 6,
+   'accumulation_date_str': '1967 - 1973',
+   'accumulation_start_date': '1967',
+   'accumulation_end_date': '1973',
+   'contents_date_str': '1967 - 1973',
+   'contents_start_date': '1967',
+   'contents_end_date': '1973',
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1646',
+   'title': 'Movement cards for annual single number series',
+   'locations': [],
+   'items_described': 0,
+   'accumulation_date_str': 'circa1967 - circa1970',
+   'accumulation_start_date': None,
+   'accumulation_end_date': None,
+   'contents_date_str': 'circa1967 - circa1970',
+   'contents_start_date': None,
+   'contents_end_date': None,
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1647',
+   'title': 'Correspondence files, DES series (Cabinet)',
+   'locations': [],
+   'items_described': 0,
+   'accumulation_date_str': '1967 - ',
+   'accumulation_start_date': '1967',
+   'accumulation_end_date': None,
+   'contents_date_str': '1967 - ',
+   'contents_start_date': '1967',
+   'contents_end_date': None,
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1648',
+   'title': 'Cabinet file register',
+   'locations': [],
+   'items_described': 0,
+   'accumulation_date_str': '1967 - ',
+   'accumulation_start_date': '1967',
+   'accumulation_end_date': None,
+   'contents_date_str': '1967 - ',
+   'contents_start_date': '1967',
+   'contents_end_date': None,
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1649',
+   'title': 'Subject index cards, Cabinet files',
+   'locations': [],
+   'items_described': 0,
+   'accumulation_date_str': '1967 - ',
+   'accumulation_start_date': '1967',
+   'accumulation_end_date': None,
+   'contents_date_str': '1967 - ',
+   'contents_start_date': '1967',
+   'contents_end_date': None,
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1873',
+   'title': "Staffing files [individual staff files], single number series with 'S' prefix",
+   'locations': [],
+   'items_described': 0,
+   'accumulation_date_str': '1949 - 1972',
+   'accumulation_start_date': '1949',
+   'accumulation_end_date': '1972',
+   'contents_date_str': '1930 - 1983',
+   'contents_start_date': '1930',
+   'contents_end_date': '1983',
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1904',
+   'title': "Name index cards, DES [Department of Education and Science] State Offices (formerly 'COE [Commonwealth Office of Education] All States')",
+   'locations': [{'location': 'ACT', 'quantity': '0.18m'}],
+   'items_described': 0,
+   'accumulation_date_str': '1965 - 1973',
+   'accumulation_start_date': '1965',
+   'accumulation_end_date': '1973',
+   'contents_date_str': '1961 - 1972',
+   'contents_start_date': '1961',
+   'contents_end_date': '1972',
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1905',
+   'title': 'Movement Cards for Interior Files',
+   'locations': [],
+   'items_described': 0,
+   'accumulation_date_str': '1968 - 1968',
+   'accumulation_start_date': '1968',
+   'accumulation_end_date': '1968',
+   'contents_date_str': '1963 - 1968',
+   'contents_start_date': '1963',
+   'contents_end_date': '1968',
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1906',
+   'title': 'Name index cards, Commonwealth Co-operation in Education, alphabetical series',
+   'locations': [{'location': 'ACT', 'quantity': '0.18m'}],
+   'items_described': 0,
+   'accumulation_date_str': '1968 - 1973',
+   'accumulation_start_date': '1968',
+   'accumulation_end_date': '1973',
+   'contents_date_str': '1966 - 1972',
+   'contents_start_date': '1966',
+   'contents_end_date': '1972',
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1907',
+   'title': 'Name index cards, Anzac Fellowship, alphabetical series',
+   'locations': [{'location': 'ACT', 'quantity': '0.18m'}],
+   'items_described': 0,
+   'accumulation_date_str': '1967 - 1973',
+   'accumulation_start_date': '1967',
+   'accumulation_end_date': '1973',
+   'contents_date_str': '1967 - 1972',
+   'contents_start_date': '1967',
+   'contents_end_date': '1972',
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1908',
+   'title': 'Name index cards, Commonwealth Scholarship and Fellowship Plan',
+   'locations': [{'location': 'ACT', 'quantity': '0.18m'}],
+   'items_described': 0,
+   'accumulation_date_str': '1968 - 1973',
+   'accumulation_start_date': '1968',
+   'accumulation_end_date': '1973',
+   'contents_date_str': '1966 - 1972',
+   'contents_start_date': '1966',
+   'contents_end_date': '1972',
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1909',
+   'title': 'Name index cards, Scholarships by Foreign Governments, alphabetical series',
+   'locations': [{'location': 'ACT', 'quantity': '0.18m'}],
+   'items_described': 0,
+   'accumulation_date_str': '1967 - 1973',
+   'accumulation_start_date': '1967',
+   'accumulation_end_date': '1973',
+   'contents_date_str': '1966 - 1972',
+   'contents_start_date': '1966',
+   'contents_end_date': '1972',
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1910',
+   'title': 'Name index cards, CBI Scholarships (Confederation of British Industries) alphabetical series',
+   'locations': [{'location': 'ACT', 'quantity': '0.09m'}],
+   'items_described': 0,
+   'accumulation_date_str': '1968 - 1973',
+   'accumulation_start_date': '1968',
+   'accumulation_end_date': '1973',
+   'contents_date_str': '1968 - 1972',
+   'contents_start_date': '1968',
+   'contents_end_date': '1972',
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1911',
+   'title': 'Name index cards, Australian American Educational Foundation, alphabetical series',
+   'locations': [{'location': 'ACT', 'quantity': '0.18m'}],
+   'items_described': 1,
+   'accumulation_date_str': '1968 - 1973',
+   'accumulation_start_date': '1968',
+   'accumulation_end_date': '1973',
+   'contents_date_str': '1965 - 1972',
+   'contents_start_date': '1965',
+   'contents_end_date': '1972',
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1912',
+   'title': "Correspondence files, single number series with '68' prefix (12, 000 block) (School Libraries)",
+   'locations': [],
+   'items_described': 0,
+   'accumulation_date_str': '1968 - 1973',
+   'accumulation_start_date': '1968',
+   'accumulation_end_date': '1973',
+   'contents_date_str': '1968 - 1973',
+   'contents_start_date': '1968',
+   'contents_end_date': '1973',
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1913',
+   'title': "Register book for correspondence files, single number series with '68' prefix (12,000 block) ('School Libraries')",
+   'locations': [],
+   'items_described': 0,
+   'accumulation_date_str': '1968 - 1973',
+   'accumulation_start_date': '1968',
+   'accumulation_end_date': '1973',
+   'contents_date_str': '1968 - 1973',
+   'contents_start_date': '1968',
+   'contents_end_date': '1973',
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1914',
+   'title': 'Movement cards for correspondence files (School Libraries)',
+   'locations': [],
+   'items_described': 0,
+   'accumulation_date_str': '1968 - 1973',
+   'accumulation_start_date': '1968',
+   'accumulation_end_date': '1973',
+   'contents_date_str': '1968 - 1973',
+   'contents_start_date': '1968',
+   'contents_end_date': '1973',
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A1915',
+   'title': 'Name index cards, School Libraries',
+   'locations': [{'location': 'ACT', 'quantity': '0.18m'}],
+   'items_described': 0,
+   'accumulation_date_str': '1968 - 1973',
+   'accumulation_start_date': '1968',
+   'accumulation_end_date': '1973',
+   'contents_date_str': '1968 - 1972',
+   'contents_start_date': '1968',
+   'contents_end_date': '1972',
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'},
+  {'identifier': 'A2102',
+   'title': 'Paid Claims (Treasury Form 12)',
+   'locations': [],
+   'items_described': 0,
+   'accumulation_date_str': '1967 - ',
+   'accumulation_start_date': '1967',
+   'accumulation_end_date': None,
+   'contents_date_str': None,
+   'contents_start_date': None,
+   'contents_end_date': None,
+   'retrieved': '2023-01-20T10:48:04.337177+11:00'}],
+ 'retrieved': '2023-01-20T10:48:04.347385+11:00'}</code></pre>
+</div>
+</div>
+<p>Calling <code>.refresh_cache</code> will remove all of the data for this search from the cache, and set the results page back to 1.</p>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L565" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rsseriessearch.refresh_cache" class="level3">
+<h3 class="anchored" data-anchor-id="rsseriessearch.refresh_cache">RSSeriesSearch.refresh_cache</h3>
+<blockquote class="blockquote">
+<pre><code> RSSeriesSearch.refresh_cache ()</code></pre>
+</blockquote>
+<p>Delete data for this search from the cache, then retrieve a fresh version from RecordSearch.</p>
+</section>
+</section>
+<section id="agencies" class="level2">
+<h2 class="anchored" data-anchor-id="agencies">Agencies</h2>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L1070" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="rsagency" class="level3">
+<h3 class="anchored" data-anchor-id="rsagency">RSAgency</h3>
+<blockquote class="blockquote">
+<pre><code> RSAgency (identifier=None, cache=True, details=None,
+           include_series_count=True)</code></pre>
+</blockquote>
+<p>Class used for extracting data about an individual agency. You need to supply the following parameter:</p>
+<ul>
+<li><code>identifier</code> – the series number, eg ‘A1’, ‘B2455’</li>
+</ul>
+<p>The series data is obtained by accessing the series’ <code>.data</code> attribute.</p>
+<p>Here are the the fields returned:</p>
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>location</code> (string)</li>
+<li><code>functions</code> – a list of functions performed by this agency, each with the fields:
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>date_str</code> (string)</li>
+<li><code>start_date</code> (ISO formatted date)</li>
+<li><code>end_date</code> (ISO formatted date)</li>
+</ul></li>
+<li><code>controlling_organisation</code> – a list of organisations, each with the fields:
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>date_str</code> (string)</li>
+<li><code>start_date</code> (ISO formatted date)</li>
+<li><code>end_date</code> (ISO formatted date)</li>
+</ul></li>
+<li><code>previous_agencies</code> – a list of agencies, each with the fields:
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>date_str</code> (string)</li>
+<li><code>start_date</code> (ISO formatted date)</li>
+<li><code>end_date</code> (ISO formatted date)</li>
+</ul></li>
+<li><code>subsequent_agencies</code> – a list of agencies, each with the fields:
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>date_str</code> (string)</li>
+<li><code>start_date</code> (ISO formatted date)</li>
+<li><code>end_date</code> (ISO formatted date)</li>
+</ul></li>
+<li><code>superior_agencies</code> – a list of agencies, each with the fields:
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>date_str</code> (string)</li>
+<li><code>start_date</code> (ISO formatted date)</li>
+<li><code>end_date</code> (ISO formatted date)</li>
+</ul></li>
+<li><code>controlled_agencies</code> – a list of agencies, each with the fields:
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>date_str</code> (string)</li>
+<li><code>start_date</code> (ISO formatted date)</li>
+<li><code>end_date</code> (ISO formatted date)</li>
+</ul></li>
+<li><code>associated_people</code> (list) – a list of people, each with the fields:
+<ul>
+<li><code>identifier</code> (string)</li>
+<li><code>title</code> (string)</li>
+<li><code>date_str</code> (string)</li>
+<li><code>start_date</code> (ISO formatted date)</li>
+<li><code>end_date</code> (ISO formatted date)</li>
+</ul></li>
+<li><code>date_str</code> (string)</li>
+<li><code>start_date</code> (ISO formatted date)</li>
+<li><code>end_date</code> (ISO formatted date)</li>
+<li><code>number_of_series</code> (integer) – number of series created by this agency</li>
+<li><code>retrieved</code> (ISO formatted date)</li>
+</ul>
+</section>
+<section id="examples-2" class="level3">
+<h3 class="anchored" data-anchor-id="examples-2">Examples</h3>
+<p>To retrieve information about an agency, just give <a href="https://wragge.github.io/recordsearch_data_scraper/scrapers.html#rsagency"><code>RSAgency</code></a> the agency identifier.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>agency <span class="op">=</span> RSAgency(<span class="st">'CA 343'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can then access the agency data using the <code>.data</code> attribute.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>agency.data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'identifier': 'CA 343',
+ 'title': 'Industrial Atomic Energy Policy Committee',
+ 'institution_title': None,
+ 'agency_status': 'Head Office',
+ 'location': 'New South Wales',
+ 'functions': [{'date_str': '01 Jan 1949 - 30 Apr 1952',
+   'start_date': '1949-01-01',
+   'end_date': '1952-04-30',
+   'identifier': 'ENERGY',
+   'title': 'ENERGY'}],
+ 'note': 'On 19 August, 1949 the Commonwealth government decided to establish an Industrial Atomic Energy Policy Committee. The Committee was set up before the end of the year. Its function was to study possible industrial applications of atomic energy and to recommend a possible programme of development. The Committee consisted of Professor Marcus Oliphant (Chairman), Dr F.W.G. White, Chief Executive Officer of the Commonwealth Scientific and Industrial Research Organization (Deputy Chairman); Professor J.P. Baxter, Professor of Chemical Engineering, New South Wales University of Technology, Mr H.P. Breen, Secretary, Department of Supply and Development, Mr H.J. Goodes, representing the Treasury, Professor L.H. Martin, Professor of Physics, University of Melbourne and Commonwealth Defence Scientific Adviser and Dr H.G. Raggett, Director of the Bureau of Mineral Resources, Geology and Geophysics. (Australian Atomic Energy Commission, First Annual Report, 1953, p.7) The Committee held a succession of meetings collecting and studying information on technical aspects of atomic energy and arrangements overseas for atomic energy development and in the light of these studies, prepared basic recommendations for an Australian programme. The Committee also prepared basic proposals for the training of staff for a research and development programme. By 1952 the Committee came to the conclusion that the problems referred to it required consideration under wider terms of reference. Accordingly it made a recommendation that it be disbanded and replaced by a new committee with revised functions. This recommendation was accepted and in April 1952 the Atomic Energy Policy Committee (CA 332) was established to replace the Industrial Atomic Energy Policy Committee. Historical agency address Subject to research Sydney, NSW',
+ 'controlling_organisation': [{'date_str': '01 Jan 1949 - 30 Apr 1952',
+   'start_date': '1949-01-01',
+   'end_date': '1952-04-30',
+   'identifier': 'CO 1',
+   'title': 'COMMONWEALTH OF AUSTRALIA'}],
+ 'previous_agencies': [],
+ 'subsequent_agencies': [{'date_str': '',
+   'start_date': None,
+   'end_date': None,
+   'identifier': 'CA 332',
+   'title': 'Atomic Energy Policy Committee'}],
+ 'superior_agencies': [{'date_str': '01 Jan 1949 - 16 Mar 1950',
+   'start_date': '1949-01-01',
+   'end_date': '1950-03-16',
+   'identifier': 'CA 54',
+   'title': 'Department of Supply and Development [II]'},
+  {'date_str': '16 Mar 1950 - 30 Apr 1952',
+   'start_date': '1950-03-16',
+   'end_date': '1952-04-30',
+   'identifier': 'CA 57',
+   'title': 'Department of Supply, Central Office'}],
+ 'controlled_agencies': [],
+ 'associated_people': [],
+ 'retrieved': '2023-01-20T10:48:05.099605+11:00',
+ 'date_str': '01 Jan 1949 -  30 Apr 1952',
+ 'start_date': '1949-01-01',
+ 'end_date': '1952-04-30',
+ 'number_of_series': 0}</code></pre>
+</div>
+</div>
+<p>Use <code>agency.data[FIELD NAME]</code> to access individual fields. The <code>agency_status</code> value of this agency should be ‘Head Office’.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> agency.data[<span class="st">'agency_status'</span>] <span class="op">==</span> <span class="st">'Head Office'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The extracted data is saved into a simple key-value cache to speed up repeat requests. If you want to scrape a fresh version, use <code>.refresh_cache()</code>.</p>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L386" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rsagency.refresh_cache" class="level3">
+<h3 class="anchored" data-anchor-id="rsagency.refresh_cache">RSAgency.refresh_cache</h3>
+<blockquote class="blockquote">
+<pre><code> RSAgency.refresh_cache ()</code></pre>
+</blockquote>
+<p>Delete data for this entity from the cache, then extract a fresh version from RecordSearch.</p>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L1135" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rsagencysearch" class="level3">
+<h3 class="anchored" data-anchor-id="rsagencysearch">RSAgencySearch</h3>
+<blockquote class="blockquote">
+<pre><code> RSAgencySearch (results_per_page=20, sort=1, record_detail='brief',
+                 **kwargs)</code></pre>
+</blockquote>
+<p>Search for agencies in RecordSearch.</p>
+<p>Supply any of the agency search parameters as kwargs to initialise the search.</p>
+<p>Optional parameters:</p>
+<ul>
+<li><code>results_per_page</code> (default: 20)</li>
+<li><code>sort</code> (default: 1 – order by id)</li>
+<li><code>page</code> – to retrieve a specific page of results</li>
+<li><code>record_detail</code> – amount of detail to include, options are:
+<ul>
+<li>‘brief’ (default) – just the info in the search results</li>
+<li>‘full’ – get the full individual record for each result (slow)</li>
+</ul></li>
+</ul>
+<p>To access a page of results, use the <code>.get_results()</code> method. This method increments the results page, so you can call it in a loop to retrieve the complete result set.</p>
+<p>Useful attributes:</p>
+<ul>
+<li><code>.total_results</code> – the total number of results in the results set</li>
+<li><code>.total_pages</code> – the total number of result pages</li>
+<li><code>.kwargs</code> – a dict containing the supplied search parameters</li>
+<li><code>.params</code> – a dict containing the values of the optional parameters</li>
+</ul>
+</section>
+<section id="agency-search-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="agency-search-parameters">Agency search parameters</h3>
+<p>These are the parameters you can supply as keyword arguments to <a href="https://wragge.github.io/recordsearch_data_scraper/scrapers.html#rsagencysearch"><code>RSAgencySearch</code></a>.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Parameter</th>
+<th style="text-align: left;">Input type</th>
+<th style="text-align: left;">Values</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>kw</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Keywords or phrase to search for</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>kw_options</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">How to combine the keywords – see <a href="#Agency-keyword-options">keyword options</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>kw_exclude</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Keywords or phrase to exclude</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>kw_exclude_options</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">How to combine the keywords – see <a href="#Agency-keyword-options">keyword options</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>function</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Limit to agencies that performed this function – see <a href="#Agency-function-note">note</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>date_from</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Include agencies that existed after this date (year only) – eg ‘1925’</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>date_to</strong></td>
+<td style="text-align: left;">Text</td>
+<td style="text-align: left;">Include agencies that existed before this date (year only) – eg ‘1945’</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>locations</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Limit to agencies in this location – see list of <a href="#Agency-location-options">locations</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>locations_exclude</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Exclude agencies in this location – see list of <a href="#Agency-location-options">locations</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>agency_status</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Limit to agencies with this status – see <a href="#Agency-status-options">list of possible values</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>agency_status_exclude</strong></td>
+<td style="text-align: left;">Select</td>
+<td style="text-align: left;">Exclude agencies with this status – see <a href="#Agency-status-options">list of possible values</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="agency-keyword-options" class="level3">
+<h3 class="anchored" data-anchor-id="agency-keyword-options">Agency keyword options</h3>
+<p>Use one of the following values to specify how keywords or phrases should be treated using the <code>kw_options</code> parameter. The default is ‘ALL’.</p>
+<ul>
+<li><strong>‘ALL’</strong> (default) – must include all keywords</li>
+<li><strong>‘ANY’</strong> – must include at least one of the keywords</li>
+<li><strong>‘EXACT’</strong> – treat the keywords as a phrase</li>
+</ul>
+</section>
+<section id="agency-function-note" class="level3">
+<h3 class="anchored" data-anchor-id="agency-function-note">Agency function note</h3>
+<p>In theory, functions are a controlled, hierarchical list, but previous examinations have shown that the use of functions in RecordSearch can be inconsistent. Here’s a <a href="https://github.com/GLAM-Workbench/recordsearch/blob/master/data/functions.txt">list of functions</a> extracted from the RecordSearch interface that you can use as values with the <code>function</code> parameter.</p>
+</section>
+<section id="agency-location-options" class="level3">
+<h3 class="anchored" data-anchor-id="agency-location-options">Agency location options</h3>
+<p>Use one of the following values with the <code>locations</code> and <code>locations_exclude</code> parameters to limit your results to agencies in that location. The default is to include all locations.</p>
+<ul>
+<li><strong>‘NAT,ACT’</strong></li>
+<li><strong>‘COCOS OR CHRISTMAS ISLAND’</strong></li>
+<li><strong>‘NSW’</strong></li>
+<li><strong>‘NT’</strong></li>
+<li><strong>‘OVERSEAS’</strong></li>
+<li><strong>‘PNG’</strong> – Papua New Guinea</li>
+<li><strong>‘QLD’</strong></li>
+<li><strong>‘SA’</strong></li>
+<li><strong>‘TAS’</strong></li>
+<li><strong>‘VIC’</strong></li>
+<li><strong>‘WA’</strong></li>
+</ul>
+</section>
+<section id="agency-status-options" class="level3">
+<h3 class="anchored" data-anchor-id="agency-status-options">Agency status options</h3>
+<p>Use one of the following values with the <code>agency_status</code> and <code>agency_status_exclude</code> parameters to limit your results to agencies with that status. The default is to include all status values.</p>
+<ul>
+<li><strong>‘DOS’</strong> – Department of State</li>
+<li><strong>‘HO’</strong> – Head Office</li>
+<li><strong>‘RO’</strong> – Regional or State Office</li>
+<li><strong>‘INTGOV’</strong> – Intergovernmental agency</li>
+<li><strong>‘COURT’</strong> – Judicial Court or Tribunal</li>
+<li><strong>‘LO’</strong> – Local Office</li>
+<li><strong>‘NONEX’</strong> – Non-Executive government agency (Courts, Parliament)</li>
+</ul>
+</section>
+<section id="examples-3" class="level3">
+<h3 class="anchored" data-anchor-id="examples-3">Examples</h3>
+<p>Search for all agencies that have performed the ‘SCIENCE’ function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>agency_search <span class="op">=</span> RSAgencySearch(function<span class="op">=</span><span class="st">'science'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Initialising the <a href="https://wragge.github.io/recordsearch_data_scraper/scrapers.html#rsagencysearch"><code>RSAgencySearch</code></a> class sets up the search and retrieves some information about the results set. For example, to see the total number of results, we just access the <code>.total_results</code> attribute.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>agency_search.total_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>60</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L516" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rsagencysearch.get_results" class="level3">
+<h3 class="anchored" data-anchor-id="rsagencysearch.get_results">RSAgencySearch.get_results</h3>
+<blockquote class="blockquote">
+<pre><code> RSAgencySearch.get_results (page=None)</code></pre>
+</blockquote>
+<p>Return a list of results from a search results page.</p>
+<p>The <code>page</code> value is incremented with each request, so you can call this method in a loop to retrieve the complete results set. When you reach then of the results, this method will return an empty list.</p>
+<p>Optional parameter:</p>
+<ul>
+<li><code>page</code> – request a specific page from the results set</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>agency_search.get_results()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'total_results': 60,
+ 'page': 1,
+ 'number_of_results': 20,
+ 'results': [{'identifier': 'CA 49',
+   'title': 'Department of Post-War Reconstruction, Central Office',
+   'date_str': '1942 - 1950',
+   'start_date': '1942',
+   'end_date': '1950',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 333',
+   'title': 'Defence Scientific Advisory Committee',
+   'date_str': '1947 - 1948',
+   'start_date': '1947',
+   'end_date': '1948',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 429',
+   'title': 'Scientific Advisory Committee, Foodstuffs',
+   'date_str': '1943 - 1947',
+   'start_date': '1943',
+   'end_date': '1947',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 1936',
+   'title': 'Senate Standing Committee on Education, Science and the Arts',
+   'date_str': '1971 - 1976',
+   'start_date': '1971',
+   'end_date': '1976',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 2423',
+   'title': 'Australian Science, Technology and Engineering Council (ASTEC)',
+   'date_str': '1977 - 1989',
+   'start_date': '1977',
+   'end_date': '1989',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 3277',
+   'title': 'Senate Standing Committee on Science and the Environment/ (from 1983) Senate Standing Committee on Science, Technology and the Environment',
+   'date_str': '1976 - 1987',
+   'start_date': '1976',
+   'end_date': '1987',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 4136',
+   'title': 'Department of Science [III], Central Office',
+   'date_str': '1984 - 1987',
+   'start_date': '1984',
+   'end_date': '1987',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 6703',
+   'title': 'Senate Standing Committee on Industry, Science, Technology, Transport, Communications and Infrastructure',
+   'date_str': '1993 - 1994',
+   'start_date': '1993',
+   'end_date': '1994',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 6944',
+   'title': 'House of Representatives Standing Committee on Industry, Science and Resources',
+   'date_str': '1987 - ',
+   'start_date': '1987',
+   'end_date': None,
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 7780',
+   'title': 'Questacon – The National Science and Technology Centre',
+   'date_str': '1985 - ',
+   'start_date': '1985',
+   'end_date': None,
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 7902',
+   'title': 'Department of Industry, Science and Technology, Central Office',
+   'date_str': '1994 - 1996',
+   'start_date': '1994',
+   'end_date': '1996',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 7923',
+   'title': 'Department of Industry, Science and Technology, State Office, New South Wales',
+   'date_str': '1994 - 1996',
+   'start_date': '1994',
+   'end_date': '1996',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 7924',
+   'title': 'Department of Industry, Science and Technology, State Office, Western Australia',
+   'date_str': '1994 - 1996',
+   'start_date': '1994',
+   'end_date': '1996',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 7925',
+   'title': 'Department of Industry, Science and Technology, State Office, Queensland',
+   'date_str': '1994 - 1996',
+   'start_date': '1994',
+   'end_date': '1996',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 7926',
+   'title': 'Department of Industry, Science and Technology, State Office, South Australia',
+   'date_str': '1994 - 1996',
+   'start_date': '1994',
+   'end_date': '1996',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 7927',
+   'title': 'Department of Industry, Science and Technology, State Office, Tasmania',
+   'date_str': '1994 - 1996',
+   'start_date': '1994',
+   'end_date': '1996',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 7930',
+   'title': 'Department of Industry, Science and Technology, State Office, Victoria',
+   'date_str': '1994 - 1996',
+   'start_date': '1994',
+   'end_date': '1996',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 8247',
+   'title': 'Department of Industry, Science and Tourism, Central Office',
+   'date_str': '1996 - 1998',
+   'start_date': '1996',
+   'end_date': '1998',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 8267',
+   'title': 'Department of Industry, Science and Tourism, State Office, Queensland',
+   'date_str': '1996 - 1998',
+   'start_date': '1996',
+   'end_date': '1998',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'},
+  {'identifier': 'CA 8268',
+   'title': 'Department of Industry, Science and Tourism, State Office, New South Wales',
+   'date_str': '1996 - 1998',
+   'start_date': '1996',
+   'end_date': '1998',
+   'retrieved': '2023-01-20T10:48:06.515238+11:00'}],
+ 'retrieved': '2023-01-20T10:48:06.520278+11:00'}</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This returns a single agency that created a single series</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="co"># It should not cause any exceptions</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>agency_search <span class="op">=</span> RSAgencySearch(function<span class="op">=</span><span class="st">'consular services'</span>)</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>agency_search.get_results()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'total_results': 1,
+ 'page': 1,
+ 'number_of_results': 1,
+ 'results': [{'identifier': 'CA 9343',
+   'title': 'Australian Embassy, East Timor [Dili]',
+   'institution_title': None,
+   'agency_status': 'Head Office',
+   'location': 'Overseas',
+   'functions': [{'date_str': '25 Oct 1999 -',
+     'start_date': '1999-10-25',
+     'end_date': None,
+     'identifier': 'CONSULAR SERVICES',
+     'title': 'CONSULAR SERVICES'},
+    {'date_str': '25 Oct 1999 -',
+     'start_date': '1999-10-25',
+     'end_date': None,
+     'identifier': 'GOVERNMENT REPRESENTATION OVERSEAS',
+     'title': 'GOVERNMENT REPRESENTATION OVERSEAS'},
+    {'date_str': '25 Oct 1999 -',
+     'start_date': '1999-10-25',
+     'end_date': None,
+     'identifier': 'INTERNATIONAL RELATIONS',
+     'title': 'INTERNATIONAL RELATIONS'}],
+   'note': 'Summary heading Agency registration notes Abolition Creation Functions and activities An Embassy, headed by an Ambassador, is the highest form of diplomatic mission. An Australian Ambassador carries Letters of Credence from the Governor-General addressed to the Head of State of the country to which Australia is represented. Accreditation of an Ambassador comprises the formal presentation and acceptance of these credentials. An Australian Embassy’s broad function is to represent to the country to which it is accredited the interests of the Commonwealth of Australia. This involves a variety of tasks including - negotiating with governments and international organisations on issues of concern to Australia; - observing and reporting on events and developments in the host country and other countries or organisations for which it has representational, visiting, reporting or consular responsibilities; - carrying out various duties on behalf of other Australian government agencies; - promoting and facilitating trade relations with Australia; - disseminating information about Australia and its policies; and - assisting Australian citizens residing in or visiting the country to which the embassy is accredited. The Australian Embassy to East Timor was officially opened as an Embassy on 20 May 2002, following the granting of independence to East Timor from Indonesia on 20 May 2002. Prior to this, Australia was officially represented in East Timor by an Australian Mission from 25 October 1999, headed by James F Batley, (PSM 2000) until the opening of the embassy. The date of Presentation of the Credentials was 9 July 2002. The Australian Government had previously been represented in Timor by an Australian Consulate, Dili , which commenced on 1 January 1946 with the appointment of Mr Charles Eaton, OBE as Consul. The last Consul was Mr M F Berman, who closed the post on 31 August 1971 (see CA 2766 – Australian Consulate, Dili [Portuguese Timor]. Ambassadors 21 May 2002 James F Batley, PSM, Amb . 08 July 2002 G Paul Foley, Amb . 13 August 2004 Margaret E Twomey , Amb . 09 January 2008 Peter M Heyward, Amb Legislation administered Administrative structure Historical agency address 1999 - present Address: Avenida dos Martires da Patria, Dili PO Box 332 Ph : (670) 3322111 Fax: (670) 3322247 State/regional structure An Australian Embassy’s broad function is to represent to the country to which it is accredited the interests of the Commonwealth of Australia, as directed by the Department of Foreign Affairs and Trade Central Office. Records created by the agency The Australian Embassy in East Timor is scheduled to transition from primarily using a paper-based recordkeeping system, managed in TRIM Captura , to using an electronic document and records management system (TRIM Context) in 2011. Additional information End notes Sources Department of Foreign Affairs and Trade (2009). Statement of Service: appointments and biographies – 15 th edition. Commonwealth Government of Australia.',
+   'controlling_organisation': [{'date_str': '25 Oct 1999 -',
+     'start_date': '1999-10-25',
+     'end_date': None,
+     'identifier': 'CO 1',
+     'title': 'COMMONWEALTH OF AUSTRALIA'}],
+   'previous_agencies': [{'date_str': '',
+     'start_date': None,
+     'end_date': None,
+     'identifier': 'CA 3217',
+     'title': 'Official Representative, Portuguese Timor [Dili]'},
+    {'date_str': '',
+     'start_date': None,
+     'end_date': None,
+     'identifier': 'CA 2766',
+     'title': 'Australian Consulate, Dili [Portuguese Timor]'}],
+   'subsequent_agencies': [],
+   'superior_agencies': [{'date_str': '25 Oct 1999 -',
+     'start_date': '1999-10-25',
+     'end_date': None,
+     'identifier': 'CA 5987',
+     'title': 'Department of Foreign Affairs and Trade, Central Office'}],
+   'controlled_agencies': [],
+   'associated_people': [],
+   'retrieved': '2023-01-20T10:48:07.708766+11:00',
+   'date_str': '25 Oct 1999 -',
+   'start_date': '1999-10-25',
+   'end_date': None,
+   'number_of_series': 1}],
+ 'retrieved': '2023-01-20T10:48:08.597801+11:00'}</code></pre>
+</div>
+</div>
+<p>Calling <code>.refresh_cache</code> will remove all of the data for this search from the cache, and set the results page back to 1.</p>
+<hr>
+<p><a href="https://github.com/wragge/recordsearch_data_scraper/blob/master/recordsearch_data_scraper/scrapers.py#L565" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="rsseriessearch.refresh_cache-1" class="level3">
+<h3 class="anchored" data-anchor-id="rsseriessearch.refresh_cache-1">RSSeriesSearch.refresh_cache</h3>
+<blockquote class="blockquote">
+<pre><code> RSSeriesSearch.refresh_cache ()</code></pre>
+</blockquote>
+<p>Delete data for this search from the cache, then retrieve a fresh version from RecordSearch.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

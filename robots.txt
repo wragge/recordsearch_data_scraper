@@ -1,0 +1,1 @@
+Sitemap: https://wragge.github.io/recordsearch_data_scraper/sitemap.xml
