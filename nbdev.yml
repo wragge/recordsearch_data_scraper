@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "recordsearch_data_scraper"
+  site-url: "https://wragge.github.io/recordsearch_data_scraper"
+  description: "Tool for extracting machine-readable data from the National Archives of Australia online database, Recordsearch."
+  repo-branch: master
+  repo-url: "https://github.com/wragge/recordsearch_data_scraper"

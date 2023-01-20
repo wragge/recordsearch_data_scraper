@@ -140,3 +140,5 @@ checklink/cookies.txt
 .gitconfig
 
 cache_db.sqlite
+_docs/
+_proc/
